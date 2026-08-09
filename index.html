@@ -3,1557 +3,555 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="color-scheme" content="dark light">
-<title>Una Familia, Una Oración — Familia Acuña</title>
-
+<title>Una Misma Raíz — Película de Oración</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-:root{
-  --ivory:#faf6ea;
-  --carbon:#15190f;
-  --moss:#4c6b4f;
-  --deep-moss:#152318;
-  --gold:#c9a24b;
-  --mist:#e4ecdf;
-  --water:#7fa89c;
-  --shadow:rgba(0,0,0,.5);
-  --font-display:"Cormorant Garamond","Georgia","Times New Roman",serif;
-  --font-ui:"Inter","Arial",Helvetica,sans-serif;
-}
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html,body{
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:#040503;
-  font-family:var(--font-display);
-}
-
-body{
-  color:var(--ivory);
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
-}
-
-button:focus-visible,
-#film:focus-visible{
-  outline:2px solid var(--gold);
-  outline-offset:3px;
-}
-
-/* =========================
-   VISUALLY HIDDEN (accesibilidad)
-========================= */
-
-.visually-hidden{
-  position:absolute;
-  width:1px;height:1px;
-  overflow:hidden;
-  clip:rect(0 0 0 0);
-  white-space:nowrap;
-}
-
-/* =========================
-   PELÍCULA
-========================= */
-
-#film{
-  position:relative;
-  width:100vw;
-  height:100vh;
-  height:100dvh;
-  overflow:hidden;
-  background:#040503;
-}
-
-.scene{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  visibility:hidden;
-  transform:scale(1.045);
-  filter:blur(6px);
-  transition:
-    opacity 2.1s ease,
-    transform 9s cubic-bezier(.16,.6,.15,1),
-    filter 2.4s ease,
-    visibility 2.1s;
-  overflow:hidden;
-}
-
-.scene.active{
-  opacity:1;
-  visibility:visible;
-  transform:scale(1);
-  filter:blur(0);
-}
-
-/* =========================
-   FONDOS CINEMATOGRÁFICOS (capa base)
-========================= */
-
-.scene .bg{
-  position:absolute;
-  inset:-6%;
-  z-index:0;
-  background:
-    radial-gradient(circle at 50% 18%,rgba(255,244,206,.32),transparent 34%),
-    linear-gradient(180deg,#5c7767 0%,#25392c 46%,#0e1712 100%);
-  animation:slowBreath 22s ease-in-out infinite alternate;
-  will-change:transform;
-}
-
-.scene.active .bg{
-  animation-play-state:running;
-}
-
-@keyframes slowBreath{
-  from{ transform:scale(1) translateY(0); }
-  to{ transform:scale(1.09) translateY(-1.4%); }
-}
-
-.scene .vignette{
-  position:absolute;
-  inset:0;
-  z-index:2;
-  background:
-    linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.4)),
-    radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.38) 100%);
-  pointer-events:none;
-}
-
-/* Paletas por familia de escena */
-
-.s01 .bg,
-.s23 .bg{
-  background:
-    radial-gradient(circle at 55% 12%,rgba(255,224,158,.42),transparent 26%),
-    linear-gradient(180deg,#6d806c,#294233 50%,#0f1a13);
-}
-
-.s02 .bg,
-.s16 .bg{
-  background:
-    radial-gradient(circle at 50% 15%,rgba(255,236,190,.62),transparent 24%),
-    linear-gradient(180deg,#9baa98,#5c7365 42%,#2a4133 76%,#141f18);
-}
-
-.s03 .bg, .s05 .bg, .s13 .bg, .s18 .bg, .s19 .bg, .s20 .bg{
-  background:
-    radial-gradient(circle at 50% 32%,rgba(190,225,215,.34),transparent 30%),
-    linear-gradient(180deg,#688379,#2c4844 48%,#0d201e);
-}
-
-.s06 .bg, .s15 .bg, .s21 .bg{
-  background:
-    radial-gradient(circle at 50% 10%,rgba(255,222,150,.62),transparent 28%),
-    linear-gradient(180deg,#adb2a3,#67806d 42%,#2e4636 75%,#151f19);
-}
-
-.s09 .bg, .s10 .bg{
-  background:
-    radial-gradient(circle at 50% 26%,rgba(216,244,216,.4),transparent 25%),
-    linear-gradient(180deg,#7a9680,#44634b 55%,#1c3122);
-}
-
-.s11 .bg, .s12 .bg, .s17 .bg{
-  background:
-    radial-gradient(circle at 50% 15%,rgba(255,232,178,.32),transparent 24%),
-    linear-gradient(180deg,#4f6b5f,#22392d 55%,#0e1611);
-}
-
-.s23 .bg{
-  background:
-    radial-gradient(circle at 50% 9%,rgba(255,224,158,.78),transparent 30%),
-    linear-gradient(180deg,#beb590,#6a806a 43%,#2c4634 80%,#141f18);
-}
-
-.s24 .bg, .s25 .bg{
-  background:
-    radial-gradient(circle at 50% 20%,rgba(255,222,158,.54),transparent 30%),
-    linear-gradient(180deg,#7d9583,#4c6653 48%,#20301f 100%);
-}
-
-.s26 .bg{
-  background:
-    radial-gradient(circle at 50% 20%,rgba(255,240,205,.55),transparent 34%),
-    linear-gradient(180deg,#5f7c72,#233a34 55%,#0a1613);
-}
-
-/* =========================
-   RAYOS DE LUZ (sutiles)
-========================= */
-
-.rays{
-  position:absolute;
-  inset:-30%;
-  z-index:1;
-  background:conic-gradient(
-    from 200deg at 50% 0%,
-    transparent 0deg,
-    rgba(255,244,210,.05) 8deg,
-    transparent 20deg,
-    transparent 40deg,
-    rgba(255,244,210,.04) 50deg,
-    transparent 62deg,
-    transparent 100deg,
-    rgba(255,244,210,.05) 112deg,
-    transparent 128deg
-  );
-  mix-blend-mode:screen;
-  animation:rotateRays 130s linear infinite;
-  pointer-events:none;
-  opacity:.75;
-}
-
-@keyframes rotateRays{
-  from{ transform:rotate(0deg); }
-  to{ transform:rotate(360deg); }
-}
-
-/* =========================
-   PARTÍCULAS AMBIENTALES
-========================= */
-
-.motes{
-  position:absolute;
-  inset:0;
-  z-index:2;
-  pointer-events:none;
-  overflow:hidden;
-}
-
-.mote{
-  position:absolute;
-  bottom:-6%;
-  width:4px;
-  height:4px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(255,248,222,.9),rgba(255,248,222,0) 70%);
-  opacity:0;
-  animation:riseMote linear infinite;
-}
-
-@keyframes riseMote{
-  0%{ opacity:0; transform:translate(0,0) scale(.6); }
-  10%{ opacity:.55; }
-  85%{ opacity:.4; }
-  100%{ opacity:0; transform:translate(var(--drift,20px),-115vh) scale(1.1); }
-}
-
-.mote:nth-child(1){ left:6%;  --drift:24px;  width:3px;height:3px; animation-duration:26s; animation-delay:0s; }
-.mote:nth-child(2){ left:14%; --drift:-18px; width:5px;height:5px; animation-duration:33s; animation-delay:4s; }
-.mote:nth-child(3){ left:22%; --drift:14px;  width:3px;height:3px; animation-duration:29s; animation-delay:9s; }
-.mote:nth-child(4){ left:31%; --drift:-22px; width:4px;height:4px; animation-duration:37s; animation-delay:2s; }
-.mote:nth-child(5){ left:40%; --drift:10px;  width:3px;height:3px; animation-duration:24s; animation-delay:12s; }
-.mote:nth-child(6){ left:49%; --drift:-12px; width:5px;height:5px; animation-duration:31s; animation-delay:6s; }
-.mote:nth-child(7){ left:58%; --drift:20px;  width:3px;height:3px; animation-duration:28s; animation-delay:15s; }
-.mote:nth-child(8){ left:66%; --drift:-16px; width:4px;height:4px; animation-duration:35s; animation-delay:1s; }
-.mote:nth-child(9){ left:74%; --drift:12px;  width:3px;height:3px; animation-duration:27s; animation-delay:10s; }
-.mote:nth-child(10){ left:82%; --drift:-20px; width:5px;height:5px; animation-duration:34s; animation-delay:5s; }
-.mote:nth-child(11){ left:90%; --drift:16px;  width:3px;height:3px; animation-duration:30s; animation-delay:13s; }
-.mote:nth-child(12){ left:96%; --drift:-10px; width:4px;height:4px; animation-duration:25s; animation-delay:8s; }
-
-/* =========================
-   ESCENA 01 · RAÍCES → TRONCO → RAMAS → CIELO
-========================= */
-
-.root-column{
-  position:absolute;
-  z-index:1;
-  left:50%;
-  bottom:0;
-  width:min(70vw,620px);
-  height:230vh;
-  transform:translate(-50%,4%);
-  animation:riseFromRoots 46s ease-in-out forwards;
-  opacity:.85;
-  pointer-events:none;
-}
-
-.root-column svg{ width:100%; height:100%; display:block; }
-
-@keyframes riseFromRoots{
-  0%{   transform:translate(-50%,4%); }
-  70%{  transform:translate(-50%,-58%); }
-  100%{ transform:translate(-50%,-64%); }
-}
-
-/* =========================
-   ESCENA 26 · ONDA DE AGUA FINAL
-========================= */
-
-.water-close{
-  position:absolute;
-  z-index:1;
-  inset:0;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  pointer-events:none;
-  overflow:hidden;
-}
-
-.water-close svg{
-  width:130%;
-  height:46%;
-  opacity:.8;
-}
-
-.ripple{
-  fill:none;
-  stroke:rgba(250,246,234,.55);
-  stroke-width:1.4;
-  transform-origin:center;
-  animation:rippleOut 6s ease-out infinite;
-}
-
-.ripple.r2{ animation-delay:1.6s; }
-.ripple.r3{ animation-delay:3.2s; }
-
-@keyframes rippleOut{
-  0%{   transform:scale(.15); opacity:.75; }
-  100%{ transform:scale(2.6); opacity:0; }
-}
-
-.final-fade{
-  position:absolute;
-  inset:0;
-  z-index:30;
-  background:#040503;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity 5s ease;
-}
-
-.final-fade.active{ opacity:1; }
-
-/* =========================
-   TEXTOS
-========================= */
-
-.content{
-  position:relative;
-  z-index:3;
-  width:min(1080px,88vw);
-  max-height:82vh;
-  overflow-y:auto;
-  text-align:center;
-  padding:40px 45px;
-  scrollbar-width:none;
-}
-
-.content::-webkit-scrollbar{ display:none; }
-
-.content.light-text{
-  color:var(--ivory);
-  text-shadow:0 3px 16px var(--shadow),0 1px 3px rgba(0,0,0,.8);
-}
-
-.eyebrow{
-  font-family:var(--font-ui);
-  font-weight:500;
-  font-size:clamp(12px,1.15vw,18px);
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  margin-bottom:26px;
-  opacity:.88;
-}
-
-h1{
-  font-family:var(--font-display);
-  font-weight:600;
-  font-size:clamp(40px,7vw,92px);
-  line-height:1.08;
-  letter-spacing:.02em;
-  margin-bottom:30px;
-}
-
-h2{
-  font-family:var(--font-display);
-  font-weight:600;
-  font-size:clamp(33px,5vw,68px);
-  line-height:1.14;
-  margin-bottom:26px;
-}
-
-.narration{
-  font-family:var(--font-display);
-  font-weight:500;
-  font-size:clamp(23px,2.4vw,37px);
-  line-height:1.58;
-  max-width:900px;
-  margin:0 auto;
-}
-
-.prayer{
-  font-family:var(--font-display);
-  font-weight:500;
-  font-size:clamp(21px,2.15vw,33px);
-  line-height:1.68;
-  max-width:920px;
-  margin:auto;
-}
-
-.verse{
-  font-family:var(--font-display);
-  font-weight:500;
-  font-style:italic;
-  font-size:clamp(21px,2.1vw,32px);
-  line-height:1.68;
-  max-width:920px;
-  margin:25px auto;
-  opacity:.96;
-}
-
-.reference{
-  color:var(--gold);
-  font-family:var(--font-ui);
-  font-weight:600;
-  font-size:clamp(14px,1.2vw,20px);
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  margin-bottom:24px;
-}
-
-.pause{ height:28px; }
-
-.big-word{
-  font-family:var(--font-display);
-  font-weight:600;
-  font-size:clamp(50px,9vw,118px);
-  letter-spacing:.06em;
-  line-height:1.15;
-}
-
-/* Revelado progresivo por fragmentos */
-
-.scene.active .narration p,
-.scene.active .prayer p,
-.scene.active .verse,
-.scene.active .big-word,
-.scene.active h1,
-.scene.active h2,
-.scene.active .eyebrow,
-.scene.active .reference{
-  animation:revealLine 1.6s cubic-bezier(.2,.7,.2,1) both;
-}
-
-.scene.active .eyebrow{ animation-delay:.1s; }
-.scene.active h1{ animation-delay:.35s; }
-.scene.active h2{ animation-delay:.3s; }
-.scene.active .reference{ animation-delay:.15s; }
-.scene.active .verse{ animation-delay:.5s; }
-
-.scene.active .narration p:nth-of-type(1),
-.scene.active .prayer p:nth-of-type(1){ animation-delay:.35s; }
-.scene.active .narration p:nth-of-type(2),
-.scene.active .prayer p:nth-of-type(2){ animation-delay:1.15s; }
-.scene.active .narration p:nth-of-type(3),
-.scene.active .prayer p:nth-of-type(3){ animation-delay:1.95s; }
-.scene.active .narration p:nth-of-type(4),
-.scene.active .prayer p:nth-of-type(4){ animation-delay:2.75s; }
-.scene.active .narration p:nth-of-type(5),
-.scene.active .prayer p:nth-of-type(5){ animation-delay:3.55s; }
-.scene.active .narration p:nth-of-type(6),
-.scene.active .prayer p:nth-of-type(6){ animation-delay:4.35s; }
-.scene.active .narration p:nth-of-type(7),
-.scene.active .prayer p:nth-of-type(7){ animation-delay:5.15s; }
-.scene.active .narration p:nth-of-type(8),
-.scene.active .prayer p:nth-of-type(8){ animation-delay:5.95s; }
-.scene.active .narration p:nth-of-type(9),
-.scene.active .prayer p:nth-of-type(9){ animation-delay:6.75s; }
-.scene.active .narration p:nth-of-type(10),
-.scene.active .prayer p:nth-of-type(10){ animation-delay:7.55s; }
-.scene.active .narration p:nth-of-type(11),
-.scene.active .prayer p:nth-of-type(11){ animation-delay:8.35s; }
-.scene.active .narration p:nth-of-type(12),
-.scene.active .prayer p:nth-of-type(12){ animation-delay:9.15s; }
-.scene.active .narration p:nth-of-type(13),
-.scene.active .prayer p:nth-of-type(13){ animation-delay:9.95s; }
-.scene.active .narration p:nth-of-type(14),
-.scene.active .prayer p:nth-of-type(14){ animation-delay:10.75s; }
-.scene.active .narration p:nth-of-type(15),
-.scene.active .prayer p:nth-of-type(15){ animation-delay:11.55s; }
-.scene.active .narration p:nth-of-type(16),
-.scene.active .prayer p:nth-of-type(16){ animation-delay:12.35s; }
-
-.scene.active .big-word ~ .big-word{ animation-delay:1.2s; }
-
-@keyframes revealLine{
-  from{ opacity:0; transform:translateY(16px); }
-  to{ opacity:1; transform:translateY(0); }
-}
-
-/* =========================
-   ROLLO (pergamino de oración)
-========================= */
-
-.scroll{
-  width:min(780px,80vw);
-  min-height:100px;
-  padding:36px 55px;
-  margin:28px auto;
-  background:
-    linear-gradient(90deg,rgba(104,70,32,.7),rgba(240,224,180,.94),rgba(104,70,32,.7));
-  border-radius:4px;
-  box-shadow:0 20px 55px rgba(0,0,0,.5),inset 0 0 32px rgba(76,48,20,.28);
-  color:#2a2115;
-}
-
-.scroll .prayer{ color:#2a2115; text-shadow:none; }
-
-/* =========================
-   CONTROLES
-========================= */
-
-#controls{
-  position:absolute;
-  z-index:20;
-  left:50%;
-  bottom:26px;
-  transform:translateX(-50%);
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:9px 14px;
-  border-radius:32px;
-  background:rgba(6,8,5,.4);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-  border:1px solid rgba(255,255,255,.08);
-  opacity:.4;
-  transition:opacity .4s ease;
-}
-
-#controls.visible,
-#controls:hover,
-#controls:focus-within{ opacity:1; }
-
-button{
-  border:0;
-  background:transparent;
-  color:var(--ivory);
-  cursor:pointer;
-  font-family:var(--font-ui);
-}
-
-.control{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  font-size:17px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:background .25s ease;
-}
-
-.control:hover{ background:rgba(255,255,255,.14); }
-
-#counter{
-  min-width:66px;
-  text-align:center;
-  font-size:12px;
-  letter-spacing:.12em;
-  font-weight:500;
-}
-
-/* =========================
-   PROGRESO
-========================= */
-
-#progress-track{
-  position:absolute;
-  z-index:20;
-  top:0;
-  left:0;
-  width:100%;
-  height:3px;
-  background:rgba(255,255,255,.08);
-}
-
-#progress{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,var(--gold),#e9d39a);
-  transition:width .5s ease;
-}
-
-/* =========================
-   INTRO
-========================= */
-
-.fade{ animation:fadeIn 2.6s ease both; }
-
-@keyframes fadeIn{
-  from{ opacity:0; transform:translateY(14px); }
-  to{ opacity:1; transform:translateY(0); }
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width:700px){
-
-  .content{ width:94vw; padding:28px 18px; max-height:78vh; }
-
-  .narration,.prayer,.verse{
-    font-size:clamp(19px,5.2vw,26px);
-    line-height:1.56;
+  :root{
+    --ink: #F8F1E2;
+    --ink-soft: #EFE6D2;
+    --gold: #C9A24B;
+    --bg: #08070a5;
+    --scrim-bottom: linear-gradient(to top, rgba(8,6,3,.88) 0%, rgba(8,6,3,.62) 30%, rgba(8,6,3,.18) 58%, rgba(8,6,3,0) 82%);
+    --scrim-full: radial-gradient(ellipse at center, rgba(6,5,3,.45) 0%, rgba(6,5,3,.62) 100%);
+    --display: 'Playfair Display', Georgia, serif;
+    --body-font: 'Lora', Georgia, serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0; padding:0; width:100%; height:100%;
+    background:#050403;
+    overflow:hidden;
+    font-family:var(--body-font);
+    -webkit-font-smoothing:antialiased;
+  }
+  #stage{
+    position:relative; width:100vw; height:100svh; height:100vh;
+    overflow:hidden; background:#050403;
+  }
+  .scene{
+    position:absolute; inset:0;
+    opacity:0; visibility:hidden;
+    transition: opacity 1.4s ease;
+    pointer-events:none;
+  }
+  .scene.active{
+    opacity:1; visibility:visible;
+    pointer-events:auto;
+    z-index:2;
+  }
+  .scene.prev{ z-index:1; }
+  .frame{
+    position:absolute; inset:0; overflow:hidden;
+  }
+  .frame img{
+    position:absolute; top:50%; left:50%;
+    min-width:100%; min-height:100%;
+    width:auto; height:auto;
+    max-width:none;
+    transform-origin:center center;
+    transform:translate(-50%,-50%) scale(1.02);
+    object-fit:cover;
+    filter:saturate(0.96) contrast(1.02);
+  }
+  .scrim{ position:absolute; inset:0; }
+  .scrim.bottom{ background:var(--scrim-bottom); }
+  .scrim.full{ background:var(--scrim-full); }
+  .scrim.extra::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(6,5,3,.55), rgba(6,5,3,.2) 45%, rgba(6,5,3,.55));
   }
 
-  h1{ font-size:clamp(36px,11vw,60px); }
-  h2{ font-size:clamp(30px,9vw,48px); }
-  .big-word{ font-size:clamp(38px,11vw,64px); }
-
-  .scroll{ padding:26px 24px; }
-
-  #controls{ bottom:14px; gap:4px; padding:7px 10px; }
-  .control{ width:38px; height:38px; font-size:15px; }
-
-  .root-column{ width:92vw; }
-}
-
-@media (max-height:480px) and (orientation:landscape){
-  .content{ max-height:88vh; padding:18px 30px; }
-  .pause{ height:14px; }
-}
-
-/* Reducir movimiento */
-
-@media (prefers-reduced-motion:reduce){
-  .scene,
-  .scene .bg,
-  .rays,
-  .mote,
-  .root-column,
-  .ripple,
-  .scene.active .narration p,
-  .scene.active .prayer p,
-  .scene.active .verse,
-  .scene.active .big-word,
-  .scene.active h1,
-  .scene.active h2,
-  .scene.active .eyebrow,
-  .scene.active .reference{
-    animation:none !important;
-    transition:opacity .6s ease !important;
+  .content{
+    position:absolute; left:0; right:0;
+    display:flex; flex-direction:column; align-items:center;
+    text-align:center; color:var(--ink);
+    padding: 0 6vw;
+    z-index:3;
   }
-  .scene{ transform:none !important; filter:none !important; }
-}
+  .content.anchor-bottom{
+    bottom: 9vh;
+    align-items:center;
+  }
+  .content.anchor-center{
+    top:50%; transform:translateY(-50%);
+    max-height:82vh; overflow-y:auto;
+    scrollbar-width:thin;
+  }
+  .content.anchor-center::-webkit-scrollbar{width:4px;}
+  .content.anchor-center::-webkit-scrollbar-thumb{background:rgba(248,241,226,.25); border-radius:4px;}
+
+  .eyebrow{
+    font-family:var(--body-font);
+    font-size: clamp(0.72rem, 1.3vw, 0.92rem);
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin:0 0 1.1em 0;
+    font-weight:500;
+  }
+  .title-lead{
+    font-family:var(--display);
+    font-weight:600;
+    font-size: clamp(1.6rem, 5vw, 3.1rem);
+    letter-spacing:0.02em;
+    margin:0 0 0.5em 0;
+    color:var(--ink);
+    text-shadow: 0 2px 24px rgba(0,0,0,.5);
+  }
+  .body-text{
+    font-family:var(--body-font);
+    font-weight:400;
+    font-size: clamp(1.08rem, 2.5vw, 1.6rem);
+    line-height:1.55;
+    max-width:44rem;
+    color:var(--ink-soft);
+    text-shadow: 0 2px 18px rgba(0,0,0,.55);
+    margin:0;
+  }
+  .body-text p{ margin:0 0 0.9em 0; }
+  .body-text p:last-child{ margin-bottom:0; }
+  .kind-verse .body-text{
+    font-family:var(--display);
+    font-style:italic;
+    font-weight:500;
+    font-size: clamp(1.2rem, 3vw, 1.85rem);
+    max-width:42rem;
+  }
+  .kind-prayer .body-text{
+    font-size: clamp(1.02rem, 2.05vw, 1.28rem);
+    max-width:38rem;
+    text-align:center;
+  }
+  .kind-closing .body-text{
+    font-family:var(--display);
+    font-weight:600;
+    font-size: clamp(1.5rem, 4.4vw, 2.6rem);
+    letter-spacing:0.04em;
+    max-width:none;
+  }
+
+  /* Ken Burns variants */
+  .kb-zoom-in{ animation-name:kbZoomIn; }
+  .kb-zoom-out{ animation-name:kbZoomOut; }
+  .kb-zoom-slow{ animation-name:kbZoomSlow; }
+  .kb-zoom-out-slow{ animation-name:kbZoomOutSlow; }
+  .kb-zoom-in-dramatic{ animation-name:kbZoomInDramatic; }
+  .kb-pan-l{ animation-name:kbPanL; }
+  .kb-pan-r{ animation-name:kbPanR; }
+  .kb-pan-u{ animation-name:kbPanU; }
+  .kb-pan-fwd{ animation-name:kbPanFwd; }
+  .frame img.kb{
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    animation-iteration-count:1;
+  }
+  @keyframes kbZoomIn{ from{transform:translate(-50%,-50%) scale(1.02);} to{transform:translate(-50%,-50%) scale(1.18);} }
+  @keyframes kbZoomOut{ from{transform:translate(-50%,-50%) scale(1.2);} to{transform:translate(-50%,-50%) scale(1.02);} }
+  @keyframes kbZoomSlow{ from{transform:translate(-50%,-50%) scale(1.03);} to{transform:translate(-50%,-50%) scale(1.11);} }
+  @keyframes kbZoomOutSlow{ from{transform:translate(-50%,-50%) scale(1.13);} to{transform:translate(-50%,-50%) scale(1.02);} }
+  @keyframes kbZoomInDramatic{ from{transform:translate(-50%,-50%) scale(1.04);} to{transform:translate(-50%,-50%) scale(1.28);} }
+  @keyframes kbPanL{ from{transform:translate(-46%,-50%) scale(1.14);} to{transform:translate(-54%,-50%) scale(1.14);} }
+  @keyframes kbPanR{ from{transform:translate(-54%,-50%) scale(1.14);} to{transform:translate(-46%,-50%) scale(1.14);} }
+  @keyframes kbPanU{ from{transform:translate(-50%,-46%) scale(1.16);} to{transform:translate(-50%,-54%) scale(1.16);} }
+  @keyframes kbPanFwd{ from{transform:translate(-50%,-50%) scale(1.05);} to{transform:translate(-50%,-52%) scale(1.22);} }
+
+  /* Fade to black for final scene */
+  .end-veil{
+    position:absolute; inset:0; background:#050403; opacity:0;
+    z-index:5; pointer-events:none;
+  }
+  .end-veil.veil-in{ animation:veilFade linear forwards; }
+  @keyframes veilFade{ from{opacity:0;} to{opacity:1;} }
+
+  /* Progress bar */
+  #progress{
+    position:absolute; top:0; left:0; height:2.5px;
+    background:var(--gold); z-index:20;
+    transition:width .5s ease;
+    opacity:.85;
+  }
+
+  /* Controls */
+  #controls{
+    position:absolute; left:50%; bottom:2.4vh; transform:translateX(-50%);
+    display:flex; align-items:center; gap:0.9rem;
+    z-index:30;
+    padding:0.5rem 0.9rem;
+    background:rgba(10,8,5,.32);
+    border:1px solid rgba(248,241,226,.16);
+    border-radius:999px;
+    backdrop-filter: blur(6px);
+    transition: opacity .5s ease;
+  }
+  #controls.hidden{ opacity:0; pointer-events:none; }
+  .ctrl-btn{
+    width:2.5rem; height:2.5rem;
+    display:flex; align-items:center; justify-content:center;
+    background:transparent; border:none; cursor:pointer;
+    color:var(--ink); opacity:0.88;
+    border-radius:50%;
+    transition: opacity .2s ease, background .2s ease;
+  }
+  .ctrl-btn:hover{ opacity:1; background:rgba(248,241,226,.1); }
+  .ctrl-btn svg{ width:1.15rem; height:1.15rem; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .ctrl-btn.play svg{ fill:currentColor; stroke:none; }
+
+  #tapzone-l, #tapzone-r{
+    position:absolute; top:0; bottom:0; width:32%;
+    z-index:10; background:transparent; border:none; padding:0; cursor:pointer;
+  }
+  #tapzone-l{ left:0; }
+  #tapzone-r{ right:0; }
+
+  @media (max-width:640px){
+    .content.anchor-bottom{ bottom:11vh; }
+    #controls{ gap:0.5rem; padding:0.4rem 0.6rem; }
+    .ctrl-btn{ width:2.2rem; height:2.2rem; }
+  }
 </style>
 </head>
-
 <body>
 
-<div id="film" tabindex="-1" aria-roledescription="película" aria-label="Una Familia, Una Oración">
+<div id="stage">
+  <div id="progress"></div>
+  <div id="scenes"></div>
+  <button id="tapzone-l" aria-label="Anterior"></button>
+  <button id="tapzone-r" aria-label="Siguiente"></button>
 
-<div id="progress-track"><div id="progress"></div></div>
-
-<div id="live-region" class="visually-hidden" aria-live="polite"></div>
-
-<!-- =====================================================
-     ESCENA 01
-===================================================== -->
-
-<section class="scene s01 active" data-duration="48" data-title="Una misma raíz">
-  <div class="bg"></div>
-  <div class="rays"></div>
-
-  <div class="root-column" aria-hidden="true">
-    <svg viewBox="0 0 400 1900" preserveAspectRatio="xMidYMax meet">
-      <defs>
-        <linearGradient id="treeGradient" x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0%" stop-color="#2f4a34"/>
-          <stop offset="45%" stop-color="#4c6b4f"/>
-          <stop offset="78%" stop-color="#7c9a6f"/>
-          <stop offset="100%" stop-color="#e6cf8f"/>
-        </linearGradient>
-        <radialGradient id="mossGlow" cx="50%" cy="100%" r="70%">
-          <stop offset="0%" stop-color="rgba(160,200,150,.5)"/>
-          <stop offset="100%" stop-color="rgba(160,200,150,0)"/>
-        </radialGradient>
-      </defs>
-
-      <ellipse cx="200" cy="1860" rx="220" ry="60" fill="url(#mossGlow)"/>
-
-      <!-- raíces -->
-      <g stroke="url(#treeGradient)" stroke-width="7" fill="none" stroke-linecap="round" opacity="0.92">
-        <path d="M200,1780 C150,1820 90,1830 40,1870"/>
-        <path d="M200,1780 C170,1830 140,1850 110,1895"/>
-        <path d="M200,1780 C230,1830 260,1850 290,1895"/>
-        <path d="M200,1780 C250,1820 310,1830 360,1870"/>
-        <path d="M200,1780 C200,1830 200,1855 200,1898"/>
-      </g>
-
-      <!-- tronco -->
-      <path d="M200,1780 C195,1500 205,1220 200,940" stroke="url(#treeGradient)" stroke-width="20" fill="none" stroke-linecap="round"/>
-
-      <!-- ramas -->
-      <g stroke="url(#treeGradient)" stroke-width="9" fill="none" stroke-linecap="round" opacity="0.95">
-        <path d="M200,1180 C150,1080 90,1040 30,960"/>
-        <path d="M200,1020 C250,930 300,880 370,800"/>
-        <path d="M200,940 C170,820 150,720 110,600"/>
-        <path d="M200,940 C230,820 260,720 310,600"/>
-        <path d="M200,940 C198,760 202,560 200,360"/>
-      </g>
-
-      <!-- ramas nuevas / hojas de luz -->
-      <g fill="#f2e3ab" opacity="0.9">
-        <circle cx="30" cy="955" r="7"/>
-        <circle cx="370" cy="795" r="7"/>
-        <circle cx="110" cy="595" r="6"/>
-        <circle cx="310" cy="595" r="6"/>
-        <circle cx="200" cy="355" r="9"/>
-        <circle cx="150" cy="450" r="5"/>
-        <circle cx="255" cy="440" r="5"/>
-        <circle cx="200" cy="180" r="11"/>
-      </g>
-    </svg>
+  <div id="controls">
+    <button class="ctrl-btn" id="btn-prev" aria-label="Escena anterior">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <button class="ctrl-btn play" id="btn-play" aria-label="Reproducir o pausar">
+      <svg id="icon-pause" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg>
+      <svg id="icon-play" viewBox="0 0 24 24" style="display:none;"><polygon points="7 4 20 12 7 20 7 4"></polygon></svg>
+    </button>
+    <button class="ctrl-btn" id="btn-next" aria-label="Siguiente escena">
+      <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"></polyline></svg>
+    </button>
+    <button class="ctrl-btn" id="btn-full" aria-label="Pantalla completa">
+      <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path><path d="M8 21H5a2 2 0 0 1-2-2v-3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path></svg>
+    </button>
   </div>
-
-  <div class="motes" aria-hidden="true">
-    <span class="mote"></span><span class="mote"></span><span class="mote"></span><span class="mote"></span>
-    <span class="mote"></span><span class="mote"></span><span class="mote"></span><span class="mote"></span>
-    <span class="mote"></span><span class="mote"></span><span class="mote"></span><span class="mote"></span>
-  </div>
-
-  <div class="vignette"></div>
-
-  <div class="content light-text fade">
-
-    <div class="eyebrow">Familia Acuña</div>
-
-    <h1>Una misma raíz</h1>
-
-    <div class="narration">
-      <p>Hace muchos años, una familia comenzó a crecer desde una misma raíz: catorce hermanos.</p>
-      <div class="pause"></div>
-      <p>Cada uno siguió su propio camino, formando nuevas familias y nuevas historias.</p>
-      <div class="pause"></div>
-      <p>Y de aquella misma raíz nació una historia que continúa hasta hoy.</p>
-    </div>
-
-    <div class="pause"></div>
-
-    <div class="big-word">CATORCE HERMANOS</div>
-
-    <div class="pause"></div>
-
-    <div class="big-word">FAMILIA ACUÑA</div>
-
-    <div class="pause"></div>
-
-    <div class="narration">
-      Hoy, quienes vienen de aquella misma raíz vuelven a encontrarse, aunque estén lejos, unidos por un mismo propósito.
-    </div>
-
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 02
-===================================================== -->
-
-<section class="scene s02" data-duration="80" data-title="Entramos en oración">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="motes" aria-hidden="true">
-    <span class="mote"></span><span class="mote"></span><span class="mote"></span><span class="mote"></span>
-    <span class="mote"></span><span class="mote"></span><span class="mote"></span><span class="mote"></span>
-  </div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-
-    <div class="eyebrow">Entramos en oración</div>
-
-    <div class="scroll">
-      <div class="prayer">
-        <p>Dios Todopoderoso,</p>
-        <div class="pause"></div>
-        <p>gracias por este momento.</p>
-        <div class="pause"></div>
-        <p>Gracias por permitirnos encontrarnos como familia, aunque estemos en distintos lugares.</p>
-        <div class="pause"></div>
-        <p>Hoy hacemos una pausa para acercarnos a Ti.</p>
-        <div class="pause"></div>
-        <p>Tú conoces a nuestros queridos tíos.</p>
-        <div class="pause"></div>
-        <p>Conoces sus vidas, sus corazones, sus necesidades y todo aquello que nosotros no podemos ver.</p>
-        <div class="pause"></div>
-        <p>Nosotros no conocemos todo, pero Tú sí.</p>
-        <div class="pause"></div>
-        <p>Por eso, antes de pedir, queremos simplemente estar contigo.</p>
-        <div class="pause"></div>
-        <p>Quédate con nosotros durante este momento.</p>
-        <div class="pause"></div>
-        <p>Quédate con nuestros tíos.</p>
-        <div class="pause"></div>
-        <p>Quédate con quienes hoy los acompañan.</p>
-        <div class="pause"></div>
-        <p>Y permite que cada persona que está aquí pueda abrir su corazón, guardar silencio y escuchar tu Palabra.</p>
-        <div class="pause"></div>
-        <p>Hoy estamos aquí, juntos en oración.</p>
-        <div class="pause"></div>
-        <p>En el nombre de Jesús de Nazaret. Amén.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 03
-===================================================== -->
-
-<section class="scene s03" data-duration="42" data-title="Mateo 18:20">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="reference">Mateo 18:20 · RVR1960</div>
-    <div class="verse">
-      [INSERTAR AQUÍ EL TEXTO EXACTO DE MATEO 18:20 EN REINA-VALERA 1960]
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 04
-===================================================== -->
-
-<section class="scene s04" data-duration="35" data-title="Una misma oración">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="narration">
-      <p>Estamos en distintos lugares.</p>
-      <div class="pause"></div>
-      <p>Pero hoy nos hemos detenido para mirar hacia un mismo lugar.</p>
-      <div class="pause"></div>
-      <p>Y para unir nuestras voces en una misma oración.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 05
-===================================================== -->
-
-<section class="scene s05" data-duration="48" data-title="Filipenses 4:6–7">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="reference">Filipenses 4:6–7 · RVR1960</div>
-    <div class="verse">
-      [INSERTAR AQUÍ EL TEXTO EXACTO DE FILIPENSES 4:6–7 EN REINA-VALERA 1960]
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 06
-===================================================== -->
-
-<section class="scene s06" data-duration="36" data-title="Paz">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="narration">
-      <p>Hay cosas que hoy podemos entregar.</p>
-      <div class="pause"></div>
-      <p>Preocupaciones.</p>
-      <div class="pause"></div>
-      <p>Temores.</p>
-      <div class="pause"></div>
-      <p>Preguntas.</p>
-      <div class="pause"></div>
-      <p>Y podemos permanecer en la paz que viene de Dios.</p>
-    </div>
-    <div class="pause"></div>
-    <div class="big-word">PAZ</div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 07
-===================================================== -->
-
-<section class="scene s07" data-duration="42" data-title="Mateo 21:22">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="reference">Mateo 21:22 · RVR1960</div>
-    <div class="verse">
-      [INSERTAR AQUÍ EL TEXTO EXACTO DE MATEO 21:22 EN REINA-VALERA 1960]
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 08
-===================================================== -->
-
-<section class="scene s08" data-duration="42" data-title="Juan 15:7">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="reference">Juan 15:7 · RVR1960</div>
-    <div class="verse">
-      [INSERTAR AQUÍ EL TEXTO EXACTO DE JUAN 15:7 EN REINA-VALERA 1960]
-    </div>
-    <div class="pause"></div>
-    <div class="narration">Permanezcamos cerca de Él.</div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 09
-===================================================== -->
-
-<section class="scene s09" data-duration="48" data-title="Jeremías 17:14">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="reference">Jeremías 17:14 · RVR1960</div>
-    <div class="verse">
-      [INSERTAR AQUÍ EL TEXTO EXACTO DE JEREMÍAS 17:14 EN REINA-VALERA 1960]
-    </div>
-    <div class="pause"></div>
-    <div class="narration">
-      <p>Hoy pedimos por la salud de nuestros tíos.</p>
-      <div class="pause"></div>
-      <p>Pedimos fortaleza.</p>
-      <div class="pause"></div>
-      <p>Pedimos tranquilidad.</p>
-      <div class="pause"></div>
-      <p>Y ponemos nuestra petición delante de Dios.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 10
-===================================================== -->
-
-<section class="scene s10" data-duration="38" data-title="Esperanza">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="narration">
-      <p>Hay cosas que no podemos ver.</p>
-      <div class="pause"></div>
-      <p>Hay respuestas que todavía no conocemos.</p>
-      <div class="pause"></div>
-      <p>Pero podemos permanecer en la esperanza.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 11
-===================================================== -->
-
-<section class="scene s11" data-duration="45" data-title="Salmo 46:1">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="reference">Salmo 46:1 · RVR1960</div>
-    <div class="verse">
-      [INSERTAR AQUÍ EL TEXTO EXACTO DE SALMO 46:1 EN REINA-VALERA 1960]
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 12
-===================================================== -->
-
-<section class="scene s12" data-duration="48" data-title="Salmo 46:10">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="reference">Salmo 46:10 · RVR1960</div>
-    <div class="verse">
-      [INSERTAR AQUÍ EL TEXTO EXACTO DE SALMO 46:10 EN REINA-VALERA 1960]
-    </div>
-    <div class="pause"></div>
-    <div class="narration">Permanezcamos un momento en silencio.</div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 13
-===================================================== -->
-
-<section class="scene s13" data-duration="48" data-title="Salmo 91:15">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="reference">Salmo 91:15 · RVR1960</div>
-    <div class="verse">
-      [INSERTAR AQUÍ EL TEXTO EXACTO DE SALMO 91:15 EN REINA-VALERA 1960]
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 14
-===================================================== -->
-
-<section class="scene s14" data-duration="35" data-title="Fe">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="narration">
-      <p>No siempre conocemos el camino.</p>
-      <div class="pause"></div>
-      <p>Pero podemos seguir caminando con fe.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 15
-===================================================== -->
-
-<section class="scene s15" data-duration="48" data-title="Salmo 121:1–2">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="reference">Salmo 121:1–2 · RVR1960</div>
-    <div class="verse">
-      [INSERTAR AQUÍ EL TEXTO EXACTO DE SALMO 121:1–2 EN REINA-VALERA 1960]
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 16
-===================================================== -->
-
-<section class="scene s16" data-duration="38" data-title="Levantar la mirada">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="narration">
-      <p>A veces, para recordar dónde está nuestra esperanza, solamente necesitamos levantar la mirada.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 17
-===================================================== -->
-
-<section class="scene s17" data-duration="48" data-title="Salmo 121:3–4">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="reference">Salmo 121:3–4 · RVR1960</div>
-    <div class="verse">
-      [INSERTAR AQUÍ EL TEXTO EXACTO DE SALMO 121:3–4 EN REINA-VALERA 1960]
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 18 — SILENCIO
-===================================================== -->
-
-<section class="scene s18" data-duration="30" data-title="Silencio">
-  <div class="bg"></div>
-  <div class="rays"></div>
-
-  <div class="water-close" aria-hidden="true">
-    <svg viewBox="0 0 800 300" preserveAspectRatio="xMidYMax meet">
-      <circle class="ripple" cx="400" cy="260" r="30"/>
-      <circle class="ripple r2" cx="400" cy="260" r="30"/>
-      <circle class="ripple r3" cx="400" cy="260" r="30"/>
-    </svg>
-  </div>
-
-  <div class="motes" aria-hidden="true">
-    <span class="mote"></span><span class="mote"></span><span class="mote"></span><span class="mote"></span>
-    <span class="mote"></span><span class="mote"></span>
-  </div>
-
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <!-- Escena de silencio: sin texto. Espacio para naturaleza, agua y piano. -->
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 19
-===================================================== -->
-
-<section class="scene s19" data-duration="35" data-title="Nuestra ayuda viene de Dios">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="reference">Salmo 121:1–2 · RVR1960</div>
-    <div class="verse">
-      [ECO BREVE DEL TEXTO DE SALMO 121:1–2]
-    </div>
-    <div class="pause"></div>
-    <div class="narration">Nuestra ayuda viene de Dios.</div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 20
-===================================================== -->
-
-<section class="scene s20" data-duration="38" data-title="Una oración">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="narration">
-      <p>Aunque estemos lejos unos de otros, hoy nuestra oración tiene un mismo destino.</p>
-    </div>
-    <div class="pause"></div>
-    <div class="big-word">UNA ORACIÓN</div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 21
-===================================================== -->
-
-<section class="scene s21" data-duration="48" data-title="Salmo 121:7–8">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="reference">Salmo 121:7–8 · RVR1960</div>
-    <div class="verse">
-      [INSERTAR AQUÍ EL TEXTO EXACTO DE SALMO 121:7–8 EN REINA-VALERA 1960]
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 22
-===================================================== -->
-
-<section class="scene s22" data-duration="48" data-title="Quienes acompañan">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="narration">
-      <p>Y nuestra oración también alcanza a quienes están cerca de ellos.</p>
-      <div class="pause"></div>
-      <p>A quienes cuidan.</p>
-      <div class="pause"></div>
-      <p>A quienes acompañan.</p>
-      <div class="pause"></div>
-      <p>A quienes realizan diligencias.</p>
-      <div class="pause"></div>
-      <p>A quienes esperan noticias.</p>
-      <div class="pause"></div>
-      <p>Y a quienes ayudan de tantas maneras.</p>
-      <div class="pause"></div>
-      <p>Que también encuentren fortaleza y paz.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 23
-===================================================== -->
-
-<section class="scene s23" data-duration="45" data-title="Volvemos a nuestra raíz">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="motes" aria-hidden="true">
-    <span class="mote"></span><span class="mote"></span><span class="mote"></span><span class="mote"></span>
-    <span class="mote"></span><span class="mote"></span>
-  </div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="eyebrow">Volvemos a nuestra raíz</div>
-    <h1>FAMILIA ACUÑA</h1>
-    <div class="narration">
-      <p>Volvemos a nuestra raíz.</p>
-      <div class="pause"></div>
-      <p>A nuestra familia.</p>
-      <div class="pause"></div>
-      <p>A quienes hoy estamos aquí.</p>
-      <div class="pause"></div>
-      <p>Y volvemos a poner todo en las manos de Dios.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 24
-===================================================== -->
-
-<section class="scene s24" data-duration="125" data-title="Oración final">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="eyebrow">Oración final</div>
-    <div class="prayer">
-      <p>Dios, gracias por este momento.</p>
-      <div class="pause"></div>
-      <p>Gracias por permitirnos encontrarnos, por reunirnos como familia y por regalarnos este espacio para estar juntos en oración.</p>
-      <div class="pause"></div>
-      <p>Gracias por cada persona que estuvo presente, por quienes pudieron leer, por quienes oraron y también por quienes simplemente acompañaron en silencio.</p>
-      <div class="pause"></div>
-      <p>Hoy ponemos nuevamente en tus manos a nuestros queridos tíos.</p>
-      <div class="pause"></div>
-      <p>Tú conoces sus vidas, sus corazones, sus necesidades y todo aquello que nosotros no podemos ver.</p>
-      <div class="pause"></div>
-      <p>Te pedimos por su salud, por su fortaleza, por su tranquilidad y por cada persona que los acompaña.</p>
-      <div class="pause"></div>
-      <p>Acompaña también a nuestra familia.</p>
-      <div class="pause"></div>
-      <p>Dale sabiduría a quienes toman decisiones, fortaleza a quienes realizan diligencias, tranquilidad a quienes esperan noticias y generosidad a quienes ayudan.</p>
-      <div class="pause"></div>
-      <p>Que nunca nos falte el amor para acompañarnos unos a otros.</p>
-      <div class="pause"></div>
-      <p>Y cuando lleguen los momentos difíciles, ayúdanos a recordar lo que hoy hemos compartido:</p>
-      <div class="pause"></div>
-      <p>que podemos acercarnos a Ti,</p>
-      <p>que podemos entregar nuestras preocupaciones,</p>
-      <p>que podemos pedir con fe,</p>
-      <p>que podemos permanecer cerca de Ti,</p>
-      <p>y que podemos descansar sabiendo que Tú eres nuestro amparo y nuestra fortaleza.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 25
-===================================================== -->
-
-<section class="scene s25" data-duration="80" data-title="Gracias">
-  <div class="bg"></div>
-  <div class="rays"></div>
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="prayer">
-      <p>Gracias por esta familia.</p>
-      <div class="pause"></div>
-      <p>Gracias por esta reunión.</p>
-      <div class="pause"></div>
-      <p>Gracias por la vida.</p>
-      <div class="pause"></div>
-      <p>Gracias por la esperanza.</p>
-      <div class="pause"></div>
-      <p>Y gracias porque, aun cuando estemos lejos, hoy pudimos estar juntos.</p>
-      <div class="pause"></div>
-      <p>Que tu paz permanezca con nosotros, con nuestros tíos y con cada persona que necesita de Ti.</p>
-      <div class="pause"></div>
-      <p>En el nombre de Jesús de Nazaret.</p>
-      <div class="pause"></div>
-      <p><strong>Amén.</strong></p>
-    </div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     ESCENA 26
-===================================================== -->
-
-<section class="scene s26" data-duration="42" data-title="Una familia, una oración, una esperanza">
-  <div class="bg"></div>
-  <div class="rays"></div>
-
-  <div class="water-close" aria-hidden="true">
-    <svg viewBox="0 0 800 300" preserveAspectRatio="xMidYMax meet">
-      <circle class="ripple" cx="400" cy="270" r="26"/>
-      <circle class="ripple r2" cx="400" cy="270" r="26"/>
-      <circle class="ripple r3" cx="400" cy="270" r="26"/>
-    </svg>
-  </div>
-
-  <div class="motes" aria-hidden="true">
-    <span class="mote"></span><span class="mote"></span><span class="mote"></span><span class="mote"></span>
-    <span class="mote"></span><span class="mote"></span><span class="mote"></span><span class="mote"></span>
-  </div>
-
-  <div class="vignette"></div>
-
-  <div class="content light-text">
-    <div class="big-word">UNA FAMILIA</div>
-    <div class="pause"></div>
-    <div class="big-word">UNA ORACIÓN</div>
-    <div class="pause"></div>
-    <div class="big-word">UNA ESPERANZA</div>
-    <div class="pause"></div>
-    <div class="eyebrow">Familia Acuña</div>
-  </div>
-</section>
-
-
-<!-- =====================================================
-     CIERRE A NEGRO
-===================================================== -->
-
-<div class="final-fade" id="finalFade" aria-hidden="true"></div>
-
-
-<!-- =====================================================
-     CONTROLES
-===================================================== -->
-
-<div id="controls">
-
-  <button class="control" id="previous" aria-label="Escena anterior">‹</button>
-
-  <button class="control" id="play" aria-label="Reproducir o pausar">Ⅱ</button>
-
-  <div id="counter">01 / 26</div>
-
-  <button class="control" id="next" aria-label="Siguiente escena">›</button>
-
-  <button class="control" id="fullscreen" aria-label="Pantalla completa">⛶</button>
-
 </div>
-
-</div>
-
-<!-- Arquitectura preparada para narración en audio.
-     Para activar la voz narrativa, asigna la ruta del archivo
-     correspondiente en el atributo data-audio de cada <section class="scene">
-     (por ejemplo: data-audio="audio/escena-01.mp3") y el reproductor
-     la utilizará automáticamente al entrar en cada escena. -->
-<audio id="narrator" preload="none"></audio>
 
 <script>
 (function(){
 
-"use strict";
-
-const scenes = Array.from(document.querySelectorAll(".scene"));
-const counter = document.getElementById("counter");
-const progress = document.getElementById("progress");
-const playButton = document.getElementById("play");
-const controls = document.getElementById("controls");
-const liveRegion = document.getElementById("live-region");
-const finalFade = document.getElementById("finalFade");
-const narrator = document.getElementById("narrator");
-
-let current = 0;
-let playing = true;
-let timer = null;
-let controlsTimer = null;
-
-function showScene(index){
-
-  if(index < 0){ index = 0; }
-  if(index >= scenes.length){ index = scenes.length - 1; }
-
-  scenes.forEach((scene,i)=>{
-    scene.classList.toggle("active", i === index);
-  });
-
-  current = index;
-
-  counter.textContent = String(current + 1).padStart(2,"0") + " / " + scenes.length;
-  progress.style.width = ((current + 1) / scenes.length * 100) + "%";
-
-  const title = scenes[current].dataset.title || ("Escena " + (current + 1));
-  liveRegion.textContent = "Escena " + (current + 1) + " de " + scenes.length + ": " + title;
-
-  finalFade.classList.remove("active");
-
-  const audioSrc = scenes[current].dataset.audio;
-  if(audioSrc){
-    narrator.src = audioSrc;
-    narrator.play().catch(()=>{ /* audio aún no disponible: se ignora */ });
-  }else{
-    narrator.pause();
-    narrator.removeAttribute("src");
+  function img(id){
+    return "https://images.unsplash.com/photo-" + id + "?auto=format&fit=crop&w=2400&q=80";
   }
 
-  restartTimer();
-}
+  var IMAGES = {
+    roots:  img("1546441471-c55d743f9fa3"),
+    path:   img("1752230446597-a5b08f8647e4"),
+    sky:    img("1762030085994-79285eee5bc9"),
+    river:  img("1655175070838-829db889485f"),
+    lake1:  img("1754206351637-42eb767d11c3"),
+    leaves: img("1779398784474-8f06058692a1"),
+    rays:   img("1612821394773-23f0a7d33ede"),
+    mount:  img("1767601048325-1403b4eeee91"),
+    lake2:  img("1770217404839-36ccbb8099c6"),
+    drop:   img("1580133318324-f2f76d987dd8")
+  };
 
-function restartTimer(){
+  var ORACION_INICIAL =
+"Dios Todopoderoso,\ngracias por este momento.\n\n"+
+"Gracias por permitirnos encontrarnos como familia,\naunque estemos en distintos lugares.\n\n"+
+"Hoy hacemos una pausa\npara acercarnos a Ti.\n\n"+
+"Tú conoces a nuestros queridos tíos.\nConoces sus vidas,\nsus corazones,\nsus necesidades\ny todo aquello que nosotros no podemos ver.\n\n"+
+"Nosotros no conocemos todo,\npero Tú sí.\n\n"+
+"Por eso, antes de pedir,\nqueremos simplemente estar contigo.\n\n"+
+"Quédate con nosotros durante este momento.\nQuédate con nuestros tíos.\nQuédate con quienes hoy los acompañan.\n\n"+
+"Y permite que cada persona que está aquí\npueda abrir su corazón,\nguardar silencio\ny escuchar tu Palabra.\n\n"+
+"Hoy estamos aquí,\njuntos en oración.\n\n"+
+"En el nombre de Jesús de Nazaret.\nAmén.";
 
-  clearTimeout(timer);
+  var ORACION_FINAL =
+"Padre bueno,\ngracias por este tiempo compartido.\n\n"+
+"Gracias por esta familia que nació de una misma raíz,\ny que hoy, a pesar de la distancia y del tiempo,\nsigue unida en tu nombre.\n\n"+
+"Te encomendamos a cada uno de los nuestros:\na quienes hoy nos acompañan,\ny a quienes llevamos en la memoria y en el corazón.\n\n"+
+"Guíanos, cuídanos, sostennos.\n\n"+
+"Que tu paz more en cada hogar de esta familia,\ny que tu amor siga siendo la raíz que nos mantiene unidos.\n\n"+
+"Gracias por escucharnos hoy.\n\n"+
+"En el nombre de Jesús de Nazaret.\nAmén.";
 
-  if(!playing){ return; }
+  var SCENES = [
+    { img:IMAGES.roots,  pos:"50% 65%", anim:"kb-zoom-in",        dur:15000, kind:"lead",
+      ref:"UNA MISMA RAÍZ",
+      body:"Hace muchos años, una familia comenzó a crecer desde una misma raíz:\nuna familia de 14 hijos." },
 
-  const duration = Number(scenes[current].dataset.duration || 40);
+    { img:IMAGES.path,   pos:"50% 55%", anim:"kb-pan-r",          dur:15000, kind:"text",
+      body:"Con el paso de los años, cada vida siguió su propio camino.\n\nAlgunos ya no están con nosotros,\npero el vínculo, la memoria y el amor permanecen." },
 
-  timer = setTimeout(()=>{
+    { img:IMAGES.sky,    pos:"50% 45%", anim:"kb-zoom-out",       dur:14000, kind:"text",
+      body:"Hoy, quienes continúan esta historia vuelven a encontrarse,\naunque estén lejos,\nunidos por una misma familia y una misma oración." },
 
-    if(current < scenes.length - 1){
-      showScene(current + 1);
-    }else{
-      playing = false;
-      playButton.textContent = "▶";
-      playButton.setAttribute("aria-label","Reproducir");
-      setTimeout(()=>{ finalFade.classList.add("active"); }, 3000);
+    { img:IMAGES.river,  pos:"50% 50%", anim:"kb-pan-l",          dur:12000, kind:"text",
+      body:"Antes de continuar, hacemos una pausa.\n\nRespiramos, y volvemos el corazón hacia Dios." },
+
+    { img:IMAGES.lake1,  pos:"50% 55%", anim:"kb-zoom-slow",      dur:52000, kind:"prayer",
+      ref:"ORACIÓN", body:ORACION_INICIAL },
+
+    { img:IMAGES.leaves, pos:"50% 45%", anim:"kb-pan-r",          dur:12000, kind:"text",
+      body:"Guardamos silencio.\n\nAbrimos el corazón.\n\nY escuchamos su Palabra." },
+
+    { img:IMAGES.rays,   pos:"50% 40%", anim:"kb-zoom-in",        dur:15000, kind:"verse",
+      ref:"SALMO 91:15",
+      body:"Me invocará, y yo le responderé; con él estaré yo en la angustia; lo libraré y le glorificaré." },
+
+    { img:IMAGES.mount,  pos:"50% 55%", anim:"kb-pan-l",          dur:13000, kind:"verse",
+      ref:"MATEO 18:20",
+      body:"Porque donde están dos o tres congregados en mi nombre, allí estoy yo en medio de ellos." },
+
+    { img:IMAGES.lake2,  pos:"50% 50%", anim:"kb-zoom-out",       dur:19000, kind:"verse",
+      ref:"FILIPENSES 4:6-7",
+      body:"Por nada estéis afanosos, sino sean conocidas vuestras peticiones delante de Dios en toda oración y ruego, con acción de gracias.\n\nY la paz de Dios, que sobrepasa todo entendimiento, guardará vuestros corazones y vuestros pensamientos en Cristo Jesús." },
+
+    { img:IMAGES.roots,  pos:"60% 40%", anim:"kb-pan-u",          dur:12000, kind:"verse",
+      ref:"MATEO 21:22",
+      body:"Y todo lo que pidiereis en oración, creyendo, lo recibiréis." },
+
+    { img:IMAGES.river,  pos:"40% 45%", anim:"kb-pan-r",          dur:14000, kind:"verse",
+      ref:"JUAN 15:7",
+      body:"Si permanecéis en mí, y mis palabras permanecen en vosotros, pedid todo lo que queréis, y os será hecho." },
+
+    { img:IMAGES.drop,   pos:"50% 50%", anim:"kb-zoom-in",        dur:13000, kind:"verse",
+      ref:"JEREMÍAS 17:14",
+      body:"Sáname, oh Jehová, y seré sano; sálvame, y seré salvo; porque tú eres mi alabanza." },
+
+    { img:IMAGES.lake1,  pos:"40% 60%", anim:"kb-pan-l",          dur:13000, kind:"verse",
+      ref:"SALMO 46:1",
+      body:"Dios es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones." },
+
+    { img:IMAGES.mount,  pos:"50% 35%", anim:"kb-zoom-out-slow",  dur:16000, kind:"verse",
+      ref:"SALMO 46:10",
+      body:"Estad quietos, y conoced que yo soy Dios; seré exaltado entre las naciones; enaltecido seré en la tierra." },
+
+    { img:IMAGES.leaves, pos:"60% 50%", anim:"kb-pan-r",          dur:13000, kind:"text",
+      body:"Pensamos en nuestros tíos.\n\nEn sus vidas, sus historias,\ntodo lo que hoy no podemos ver, pero Dios sí conoce." },
+
+    { img:IMAGES.sky,    pos:"50% 55%", anim:"kb-zoom-in",        dur:15000, kind:"verse",
+      ref:"SALMO 121:1-2",
+      body:"Alzaré mis ojos a los montes; ¿de dónde vendrá mi socorro?\n\nMi socorro viene de Jehová, que hizo los cielos y la tierra." },
+
+    { img:IMAGES.path,   pos:"50% 60%", anim:"kb-pan-fwd",        dur:13000, kind:"text",
+      body:"Alzamos los ojos, buscando ayuda más allá de nosotros mismos,\nconfiando en que el camino no se anda solo." },
+
+    { img:IMAGES.mount,  pos:"40% 45%", anim:"kb-zoom-slow",      dur:15000, kind:"verse",
+      ref:"SALMO 121:3-4",
+      body:"No dará tu pie al resbaladero, ni se dormirá el que te guarda.\n\nHe aquí, no se adormecerá ni dormirá el que guarda a Israel." },
+
+    { img:IMAGES.roots,  pos:"45% 55%", anim:"kb-pan-l",          dur:13000, kind:"text",
+      body:"Sabemos que hay Alguien que vela, que no duerme,\nque cuida cada paso de esta familia." },
+
+    { img:IMAGES.river,  pos:"55% 50%", anim:"kb-zoom-in",        dur:15000, kind:"verse",
+      ref:"SALMO 121:7-8",
+      body:"Jehová te guardará de todo mal; él guardará tu alma.\n\nJehová guardará tu salida y tu entrada desde ahora y para siempre." },
+
+    { img:IMAGES.rays,   pos:"45% 50%", anim:"kb-zoom-in-dramatic", dur:16000, kind:"verse",
+      ref:"SALMO 91:15",
+      body:"Me invocará, y yo le responderé; con él estaré yo en la angustia; lo libraré y le glorificaré." },
+
+    { img:IMAGES.leaves, pos:"45% 55%", anim:"kb-pan-r",          dur:13000, kind:"text",
+      body:"Damos gracias por esta familia.\n\nPor quienes están,\npor quienes ya no están,\ny por el amor que nos sigue uniendo." },
+
+    { img:IMAGES.lake2,  pos:"55% 50%", anim:"kb-zoom-out",       dur:12000, kind:"text",
+      body:"La luz permanece.\nLa esperanza permanece.\nLa fe permanece." },
+
+    { img:IMAGES.lake1,  pos:"50% 50%", anim:"kb-pan-l",          dur:11000, kind:"text",
+      body:"Hoy estamos aquí,\njuntos en oración." },
+
+    { img:IMAGES.lake2,  pos:"50% 45%", anim:"kb-zoom-slow",      dur:48000, kind:"prayer",
+      ref:"ORACIÓN FINAL", body:ORACION_FINAL },
+
+    { img:IMAGES.sky,    pos:"50% 55%", anim:"kb-zoom-out",       dur:16000, kind:"closing",
+      body:"Paz. Esperanza. Familia. Fe." }
+  ];
+
+  var stage = document.getElementById("scenes");
+  var progress = document.getElementById("progress");
+  var controls = document.getElementById("controls");
+
+  SCENES.forEach(function(s, i){
+    var sec = document.createElement("div");
+    sec.className = "scene";
+    sec.dataset.index = i;
+
+    var frame = document.createElement("div");
+    frame.className = "frame";
+    var im = document.createElement("img");
+    im.src = s.img;
+    im.style.objectPosition = s.pos;
+    im.className = "kb " + s.anim;
+    im.alt = "";
+    frame.appendChild(im);
+    sec.appendChild(frame);
+
+    var scrim = document.createElement("div");
+    scrim.className = "scrim " + (s.kind === "prayer" ? "full" : "bottom");
+    sec.appendChild(scrim);
+
+    var content = document.createElement("div");
+    content.className = "content kind-" + s.kind + " " + (s.kind === "prayer" ? "anchor-center" : "anchor-bottom");
+
+    if(s.ref){
+      var eyebrow = document.createElement("p");
+      eyebrow.className = "eyebrow";
+      eyebrow.textContent = s.ref;
+      content.appendChild(eyebrow);
     }
 
-  }, duration * 1000);
-}
+    var bodyWrap = document.createElement("div");
+    bodyWrap.className = "body-text";
+    var paras = s.body.split("\n\n");
+    paras.forEach(function(p){
+      var pEl = document.createElement("p");
+      var lines = p.split("\n");
+      lines.forEach(function(line, li){
+        pEl.appendChild(document.createTextNode(line));
+        if(li < lines.length - 1) pEl.appendChild(document.createElement("br"));
+      });
+      bodyWrap.appendChild(pEl);
+    });
+    content.appendChild(bodyWrap);
 
-function togglePlay(){
+    if(s.kind === "lead"){
+      bodyWrap.classList.remove("body-text");
+      bodyWrap.classList.add("title-lead");
+    }
 
-  playing = !playing;
+    sec.appendChild(content);
 
-  playButton.textContent = playing ? "Ⅱ" : "▶";
-  playButton.setAttribute("aria-label", playing ? "Pausar" : "Reproducir");
+    if(i === SCENES.length - 1){
+      var veil = document.createElement("div");
+      veil.className = "end-veil";
+      veil.id = "end-veil";
+      sec.appendChild(veil);
+    }
 
-  if(playing){ finalFade.classList.remove("active"); }
+    stage.appendChild(sec);
+  });
 
-  restartTimer();
-}
+  var sceneEls = Array.prototype.slice.call(document.querySelectorAll(".scene"));
+  var idx = 0;
+  var playing = true;
+  var timer = null;
+  var controlsTimeout = null;
 
-document.getElementById("play").addEventListener("click", togglePlay);
-
-document.getElementById("next").addEventListener("click", ()=>{
-  showScene(current + 1);
-});
-
-document.getElementById("previous").addEventListener("click", ()=>{
-  showScene(current - 1);
-});
-
-/* Pantalla completa */
-
-document.getElementById("fullscreen").addEventListener("click", ()=>{
-
-  const film = document.getElementById("film");
-
-  if(!document.fullscreenElement){
-    (film.requestFullscreen || film.webkitRequestFullscreen || function(){}).call(film);
-  }else{
-    (document.exitFullscreen || document.webkitExitFullscreen || function(){}).call(document);
+  function restartImageAnim(sceneEl, dur){
+    var im = sceneEl.querySelector("img.kb");
+    im.style.animation = "none";
+    im.style.animationDuration = "";
+    void im.offsetWidth;
+    im.style.animationDuration = dur + "ms";
+    im.style.animation = "";
+    var animName = getComputedStyle(im).animationName;
+    im.style.animationName = animName;
+    im.style.animationDuration = dur + "ms";
+    im.style.animationTimingFunction = "ease-in-out";
+    im.style.animationFillMode = "forwards";
   }
 
-});
+  function showScene(newIdx){
+    idx = (newIdx + SCENES.length) % SCENES.length;
+    sceneEls.forEach(function(el, i){
+      if(i === idx){
+        el.classList.add("active");
+      } else {
+        el.classList.remove("active");
+      }
+    });
+    var s = SCENES[idx];
+    restartImageAnim(sceneEls[idx], s.dur);
+    updateProgress();
 
-/* Teclado */
+    if(idx === SCENES.length - 1){
+      var veil = document.getElementById("end-veil");
+      if(veil){
+        veil.classList.remove("veil-in");
+        void veil.offsetWidth;
+        veil.style.animationDuration = Math.max(s.dur - 2500, 2000) + "ms";
+        veil.style.animationDelay = "2000ms";
+        veil.classList.add("veil-in");
+      }
+    }
 
-document.addEventListener("keydown",(event)=>{
-
-  if(event.key === "ArrowRight"){ showScene(current + 1); }
-  if(event.key === "ArrowLeft"){ showScene(current - 1); }
-
-  if(event.key === " "){
-    event.preventDefault();
-    togglePlay();
+    clearTimeout(timer);
+    if(playing){
+      timer = setTimeout(function(){ next(); }, s.dur);
+    }
   }
 
-  if(event.key.toLowerCase() === "f"){
-    document.getElementById("fullscreen").click();
+  function updateProgress(){
+    var pct = ((idx + 1) / SCENES.length) * 100;
+    progress.style.width = pct + "%";
   }
 
-  revealControls();
+  function next(){ showScene(idx + 1); }
+  function prev(){ showScene(idx - 1); }
 
-});
+  function setPlaying(v){
+    playing = v;
+    document.getElementById("icon-pause").style.display = playing ? "block" : "none";
+    document.getElementById("icon-play").style.display = playing ? "none" : "block";
+    clearTimeout(timer);
+    if(playing){
+      var remaining = SCENES[idx].dur;
+      timer = setTimeout(function(){ next(); }, remaining);
+    }
+  }
 
-/* Controles discretos: aparecen con actividad, se ocultan tras inactividad */
+  document.getElementById("btn-next").addEventListener("click", function(){ next(); });
+  document.getElementById("btn-prev").addEventListener("click", function(){ prev(); });
+  document.getElementById("btn-play").addEventListener("click", function(){ setPlaying(!playing); });
+  document.getElementById("tapzone-r").addEventListener("click", function(){ next(); });
+  document.getElementById("tapzone-l").addEventListener("click", function(){ prev(); });
 
-function revealControls(){
-  controls.classList.add("visible");
-  clearTimeout(controlsTimer);
-  controlsTimer = setTimeout(()=>{
-    controls.classList.remove("visible");
-  }, 3200);
-}
+  document.getElementById("btn-full").addEventListener("click", function(){
+    if(!document.fullscreenElement){
+      document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(function(){});
+    } else {
+      document.exitFullscreen && document.exitFullscreen();
+    }
+  });
 
-["mousemove","touchstart","pointerdown"].forEach((evt)=>{
-  document.addEventListener(evt, revealControls, {passive:true});
-});
+  document.addEventListener("keydown", function(e){
+    if(e.key === "ArrowRight"){ next(); }
+    else if(e.key === "ArrowLeft"){ prev(); }
+    else if(e.key === " "){ e.preventDefault(); setPlaying(!playing); }
+    else if(e.key === "f" || e.key === "F"){ document.getElementById("btn-full").click(); }
+  });
 
-revealControls();
+  var touchStartX = null;
+  document.getElementById("stage").addEventListener("touchstart", function(e){
+    touchStartX = e.changedTouches[0].clientX;
+  }, {passive:true});
+  document.getElementById("stage").addEventListener("touchend", function(e){
+    if(touchStartX === null) return;
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(dx) > 50){
+      if(dx < 0) next(); else prev();
+    }
+    touchStartX = null;
+  }, {passive:true});
 
-/* Inicio */
+  function nudgeControls(){
+    controls.classList.remove("hidden");
+    clearTimeout(controlsTimeout);
+    controlsTimeout = setTimeout(function(){
+      controls.classList.add("hidden");
+    }, 4200);
+  }
+  ["mousemove","touchstart","click"].forEach(function(ev){
+    document.addEventListener(ev, nudgeControls, {passive:true});
+  });
+  nudgeControls();
 
-showScene(0);
-
+  showScene(0);
 })();
 </script>
-
 </body>
 </html>

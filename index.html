@@ -1,621 +1,664 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Una misma raíz — Familia Acuña</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Donde la luz encuentra el silencio</title>
+<meta name="description" content="Una experiencia web cinematográfica sobre la quietud, la raíz y la esperanza.">
+
+<!-- ============================================================
+     TIPOGRAFÍA — Fraunces (display) + Inter (texto de apoyo)
+     ============================================================ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
+/* =====================================================================
+   0. TOKENS — sistema de diseño
+   ===================================================================== */
 :root{
-  --ink:#f6efdc; --ink-soft:#d8cfb4; --gold:#e0b464; --gold-dim:#a9884f;
-  --bark:#1a130c; --paper:#f2e6c9; --paper-shadow:#c9ad72;
-  --serif:'Playfair Display',Georgia,serif; --body:'EB Garamond',Georgia,serif; --ui:'Inter',Arial,sans-serif;
-}
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#05060a}
-body{font-family:var(--body);color:var(--ink)}
-@media (prefers-reduced-motion:reduce){*{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.2s !important}}
+  --bg:        #0b0c09;
+  --ink:       #f4efe4;
+  --ink-soft:  #cbc3b0;
+  --ink-faint: #8c8878;
+  --gold:      #c9a24b;
+  --gold-soft: #e9d9ad;
+  --forest:    #566047;
+  --line:      rgba(244,239,228,0.14);
+  --veil:      rgba(6,7,5,0.55);
 
-/* ---------- STAGE ---------- */
-#stage{position:fixed;inset:0}
-.slide{position:absolute;inset:0;display:grid;place-items:center;padding:8vw 7vw;opacity:0;visibility:hidden;transform:scale(1.03);transition:opacity 1.4s ease,transform 3.2s cubic-bezier(.19,.7,.2,1);isolation:isolate;overflow:hidden}
-.slide.active{opacity:1;visibility:visible;transform:scale(1)}
-.slide .veil{position:absolute;inset:0;z-index:-2;background:var(--bg);animation:drift 26s ease-in-out infinite alternate}
-.slide .vignette{position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 45%,transparent 30%,#000a 92%),linear-gradient(180deg,#0004,#0009 85%)}
-@keyframes drift{from{transform:scale(1.05) translate(-1%,.5%)}to{transform:scale(1.14) translate(1%,-1%)}}
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 
-.content{max-width:920px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;text-shadow:0 3px 30px #000a}
-.eyebrow{font:600 12px var(--ui);letter-spacing:.32em;text-transform:uppercase;color:var(--gold);opacity:.9;animation:fadeUp 1.6s ease both}
-.titleXL{font-family:var(--serif);font-weight:500;font-size:clamp(44px,7.2vw,98px);line-height:1.02;margin:0;animation:fadeUp 1.9s .1s ease both}
-.wordmark{font:600 13px var(--ui);letter-spacing:.4em;text-transform:uppercase;color:var(--ink-soft);opacity:.85;animation:fadeUp 2s .3s ease both}
-h2.ref{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(24px,3.4vw,42px);margin:0;color:var(--gold);animation:fadeUp 1.7s ease both}
-.verseText{font-family:var(--body);font-size:clamp(21px,2.5vw,34px);line-height:1.55;max-width:880px;animation:fadeUp 1.9s .15s ease both}
-.verseText b{color:var(--gold);font-weight:600;font-size:.7em;vertical-align:super}
-.small{font-family:var(--body);font-size:clamp(18px,2vw,26px);line-height:1.6;max-width:800px;opacity:.95;animation:fadeUp 1.8s ease both}
-.phrase{font-family:var(--serif);font-weight:500;letter-spacing:.01em;font-size:clamp(28px,4.4vw,60px);line-height:1.15;animation:fadeUp 1.9s ease both}
-.stack{display:flex;flex-direction:column;gap:8px}
-.prompt{font:600 12px var(--ui);letter-spacing:.24em;text-transform:uppercase;opacity:.7;animation:fadeUp 2.2s ease both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.stagger>*{animation:fadeUp 1.6s ease both}
-.stagger>*:nth-child(1){animation-delay:.05s}.stagger>*:nth-child(2){animation-delay:.4s}
-.stagger>*:nth-child(3){animation-delay:.75s}.stagger>*:nth-child(4){animation-delay:1.1s}
-.stagger>*:nth-child(5){animation-delay:1.45s}.stagger>*:nth-child(6){animation-delay:1.8s}
+  --letterbox: clamp(10px, 3.2vh, 46px);
+  --gutter:    clamp(24px, 7vw, 96px);
 
-/* ---------- THEMES ---------- */
-.t-roots{--bg:radial-gradient(ellipse 90% 70% at 50% 115%,#4a3419 0%,#241a0f 42%,#0c0906 100%)}
-.t-path{--bg:linear-gradient(180deg,#4c5c52 0%,#8c8058 38%,#c99e58 58%,#3a3021 100%)}
-.t-sky{--bg:linear-gradient(180deg,#293b4c 0%,#6f8798 28%,#dfb87a 52%,#f2e2bd 64%,#3a2f21 100%)}
-.t-light{--bg:radial-gradient(circle at 50% 32%,#f2d99e 0%,#caa155 34%,#3a2c17 68%,#0f0b06 100%)}
-.t-water{--bg:linear-gradient(180deg,#1f333a 0%,#3c5a5a 38%,#7d9a8d 60%,#c8b787 85%,#201d17 100%)}
-.t-leaves{--bg:radial-gradient(circle at 50% 18%,#5c7c50 0%,#284022 52%,#0e1409 100%)}
-.t-dark{--bg:radial-gradient(circle at 50% 46%,#161f1b 0%,#070907 70%,#020302 100%)}
-.t-bible{--bg:linear-gradient(180deg,#40331f 0%,#241a0f 55%,#0b0805 100%)}
-
-/* ---------- FX: LIGHT RAYS ---------- */
-.fx-rays{position:absolute;inset:-20%;z-index:-1;opacity:.5;mix-blend-mode:screen;
-  background:repeating-linear-gradient(100deg,#ffe9b3 0 2px,transparent 2px 60px);
-  filter:blur(6px);animation:rayscan 22s linear infinite}
-@keyframes rayscan{from{transform:translateX(-6%) rotate(0deg)}to{transform:translateX(6%) rotate(2deg)}}
-
-/* ---------- FX: LEAVES ---------- */
-.fx-leaves{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
-.leaf{position:absolute;width:16px;height:22px;opacity:.55;
-  background:linear-gradient(160deg,#cdbb70,#6f8a4d 65%);
-  clip-path:path('M8 0C13 5 16 12 8 22C0 12 3 5 8 0Z');
-  animation:leafFall linear infinite}
-.leaf:nth-child(1){left:8%;top:-8%;animation-duration:16s;animation-delay:0s;transform:scale(1.1)}
-.leaf:nth-child(2){left:22%;top:-14%;animation-duration:21s;animation-delay:2s;transform:scale(.8)}
-.leaf:nth-child(3){left:38%;top:-10%;animation-duration:18s;animation-delay:5s}
-.leaf:nth-child(4){left:55%;top:-16%;animation-duration:24s;animation-delay:1s;transform:scale(1.2)}
-.leaf:nth-child(5){left:70%;top:-9%;animation-duration:19s;animation-delay:4s;transform:scale(.9)}
-.leaf:nth-child(6){left:85%;top:-13%;animation-duration:23s;animation-delay:7s}
-.leaf:nth-child(7){left:63%;top:-20%;animation-duration:17s;animation-delay:9s;transform:scale(.7)}
-@keyframes leafFall{
-  0%{transform:translate(0,0) rotate(0deg)}
-  50%{transform:translate(30px,55vh) rotate(160deg)}
-  100%{transform:translate(-20px,118vh) rotate(320deg)}
+  --ease-cinema: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ---------- FX: WATER ---------- */
-.fx-water{position:absolute;inset:0;z-index:-1;opacity:.55;pointer-events:none;
+*{ box-sizing:border-box; }
+html{ background:var(--bg); scroll-behavior:auto; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+  cursor:default;
+}
+img{ -webkit-user-drag:none; user-select:none; }
+::selection{ background:var(--gold); color:#161409; }
+
+h1,h2,h3{
+  font-family:var(--font-display);
+  font-weight:500;
+  line-height:1.05;
+  margin:0;
+  letter-spacing:-0.01em;
+}
+
+a{ color:inherit; }
+
+/* =====================================================================
+   1. MARCO CINEMATOGRÁFICO — barras de letterbox + grano + hilo de luz
+   ===================================================================== */
+.letterbox{
+  position:fixed; left:0; right:0; height:var(--letterbox);
+  background:#000; z-index:60; pointer-events:none;
+}
+.letterbox.top{ top:0; }
+.letterbox.bottom{ bottom:0; }
+
+.grain{
+  position:fixed; inset:0; z-index:55; pointer-events:none;
+  opacity:0.05; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.vignette{
+  position:fixed; inset:0; z-index:56; pointer-events:none;
+  box-shadow: inset 0 0 22vw rgba(0,0,0,0.55);
+}
+
+/* hilo vertical de luz — indicador de avance, firma visual de la pieza */
+.light-thread{
+  position:fixed; left:clamp(14px,3vw,34px);
+  top:var(--letterbox); bottom:var(--letterbox);
+  width:1px; z-index:58; pointer-events:none;
+  background:var(--line);
+  display:block;
+}
+@media (max-width: 720px){ .light-thread{ display:none; } }
+
+/* =====================================================================
+   2. NAV MÍNIMA
+   ===================================================================== */
+.mark{
+  position:fixed; z-index:59;
+  top:calc(var(--letterbox) + clamp(18px,3vh,30px));
+  left:var(--gutter);
+  font-family:var(--font-display); font-style:italic; font-weight:400;
+  font-size:0.95rem; letter-spacing:0.02em; color:var(--ink-soft);
+  opacity:0; pointer-events:none;
+}
+.sound-toggle{
+  position:fixed; z-index:59;
+  top:calc(var(--letterbox) + clamp(16px,3vh,28px));
+  right:var(--gutter);
+  width:38px; height:38px; border-radius:50%;
+  border:1px solid var(--line); background:rgba(11,12,9,0.35);
+  backdrop-filter: blur(6px);
+  color:var(--ink-soft); display:flex; align-items:center; justify-content:center;
+  cursor:pointer; opacity:0; transition:border-color .3s, color .3s;
+}
+.sound-toggle:hover{ border-color:var(--gold); color:var(--gold-soft); }
+.sound-toggle:focus-visible, .scroll-cue:focus-visible, .letter-nav a:focus-visible{
+  outline:2px solid var(--gold); outline-offset:3px;
+}
+.sound-toggle svg{ width:16px; height:16px; }
+.sound-toggle .icon-off{ display:none; }
+.sound-toggle.is-muted .icon-on{ display:none; }
+.sound-toggle.is-muted .icon-off{ display:block; }
+
+/* =====================================================================
+   3. ESCENAS
+   ===================================================================== */
+.scene{
+  position:relative;
+  min-height:100vh;
+  min-height:100svh;
+  display:flex;
+  align-items:flex-end;
+  overflow:hidden;
+  isolation:isolate;
+}
+.scene-media{
+  position:absolute; inset:0; z-index:0;
+  overflow:hidden;
+}
+.scene-media img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  object-position:center;
+  transform:scale(1.18);
+  will-change:transform;
+}
+.scene-media::after{ /* film-toned color grade, consistent across photos */
+  content:''; position:absolute; inset:0;
   background:
-   radial-gradient(ellipse 60% 18% at 30% 70%,#fff5d6 0%,transparent 60%),
-   radial-gradient(ellipse 50% 14% at 68% 82%,#ffe9b8 0%,transparent 60%);
-  filter:blur(2px);animation:ripple 9s ease-in-out infinite alternate}
-@keyframes ripple{from{opacity:.35;background-position:0 0}to{opacity:.65;background-position:2% -1%}}
-
-/* ---------- FX: GRAIN ---------- */
-.fx-grain{position:absolute;inset:0;z-index:-1;opacity:.12;pointer-events:none;mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
-
-/* ---------- FX: EMBER / SILENCE DOT ---------- */
-.fx-ember{position:absolute;left:50%;top:44%;width:10px;height:10px;border-radius:50%;
-  background:radial-gradient(circle,#fff2c9,#e0b464 60%,transparent 75%);
-  box-shadow:0 0 40px 14px #e0b46455;transform:translate(-50%,-50%);z-index:-1;
-  animation:glow 4.5s ease-in-out infinite}
-@keyframes glow{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.5)}}
-
-/* ---------- ROOT LINE (signature, persistent growth across the film) ---------- */
-#rootline{position:fixed;left:0;bottom:0;width:100%;height:64px;z-index:15;pointer-events:none;opacity:.85}
-#rootline path{fill:none;stroke:var(--gold);stroke-width:1.4;filter:drop-shadow(0 0 6px #e0b46499)}
-
-/* ---------- SIGNATURE / IDENTITY ---------- */
-.moni{position:absolute;right:5%;bottom:4%;font-family:var(--serif);font-style:italic;font-size:13px;
-  letter-spacing:.06em;color:var(--gold);opacity:.4;z-index:2}
-
-/* ---------- BOOK PAGE TRANSITION ---------- */
-.page{position:absolute;z-index:25;left:50%;top:50%;width:min(880px,80vw);height:min(600px,72vh);
-  transform:translate(-50%,-50%);opacity:0;pointer-events:none;transform-origin:left center;
-  background:
-   linear-gradient(90deg,#0000,#0002 6%,#0000 10%),
-   radial-gradient(circle at 50% 50%,#00000009,transparent 60%),
-   var(--paper);
-  background-color:var(--paper);
-  box-shadow:0 40px 120px #000a, inset 0 0 60px #0000000f;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/></svg>");
-  border-left:2px solid var(--paper-shadow)}
-.page.turn{animation:turn 1.5s cubic-bezier(.61,.06,.2,.99) both}
-@keyframes turn{
-  0%{opacity:1;transform:translate(-50%,-50%) perspective(2000px) rotateY(0)}
-  55%{opacity:.92;transform:translate(-50%,-50%) perspective(2000px) rotateY(-94deg)}
-  100%{opacity:0;transform:translate(-50%,-50%) perspective(2000px) rotateY(-180deg)}
+    linear-gradient(180deg, rgba(6,7,5,0.15) 0%, rgba(6,7,5,0.15) 40%, rgba(6,7,5,0.75) 100%),
+    linear-gradient(15deg, rgba(24,18,8,0.28), rgba(6,10,9,0.18));
+  mix-blend-mode:multiply;
+}
+.scene-media::before{
+  content:''; position:absolute; inset:0; z-index:2;
+  background:radial-gradient(ellipse at 30% 20%, rgba(233,217,173,0.10), transparent 60%);
+  mix-blend-mode:screen;
+  opacity:0.8;
 }
 
-/* ---------- CONTROLS ---------- */
-#controls{position:fixed;z-index:40;bottom:18px;left:50%;transform:translateX(-50%);
-  display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:30px;
-  background:#00000055;border:1px solid #ffffff22;backdrop-filter:blur(12px)}
-#controls button{border:0;border-radius:50%;width:38px;height:38px;background:#ffffff14;color:#fff;font-size:22px;cursor:pointer;transition:background .2s}
-#controls button:hover{background:#ffffff2a}
-#counter{font:12px var(--ui);opacity:.7;min-width:46px;text-align:center;color:var(--ink-soft)}
-#host{display:none;position:fixed;z-index:50;right:16px;top:16px;width:280px;padding:16px;border-radius:16px;
-  background:#100c07ee;border:1px solid #ffffff22;font:13px/1.5 var(--ui);box-shadow:0 20px 60px #000a;color:var(--ink-soft)}
-#host.show{display:block}
-#host strong{display:block;font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;color:var(--gold)}
-#hostHint{opacity:.55;margin-top:9px}
-#bgmToggle{position:fixed;z-index:40;top:16px;left:16px;border:1px solid #ffffff22;background:#00000055;
-  color:#fff;border-radius:20px;padding:8px 14px;font:12px var(--ui);letter-spacing:.08em;cursor:pointer;backdrop-filter:blur(10px)}
+.scene-veil{
+  position:absolute; inset:0; z-index:1;
+  background:#0b0c09;
+  pointer-events:none;
+}
 
-@media(max-width:700px){
-  .content{gap:14px}
-  .slide{padding:11vw 7vw}
-  #controls{bottom:10px}
-  .moni{right:6%;bottom:8%}
-  .page{width:88vw;height:64vh}
+.scene-content{
+  position:relative; z-index:2;
+  width:100%;
+  padding: 0 var(--gutter) clamp(64px, 12vh, 140px);
+}
+.scene-inner{ max-width:44rem; }
+.scene.align-right .scene-inner{ margin-left:auto; text-align:right; }
+
+.eyebrow{
+  display:block;
+  font-family:var(--font-body); font-weight:500;
+  font-size:0.78rem; letter-spacing:0.28em; text-transform:uppercase;
+  color:var(--gold-soft);
+  margin-bottom:clamp(14px,2.4vh,22px);
+}
+.scene-title{
+  font-size:clamp(2.35rem, 5.4vw, 4.4rem);
+  color:var(--ink);
+  max-width:16ch;
+}
+.scene.align-right .scene-title{ margin-left:auto; }
+
+.scene-body{
+  margin-top:clamp(20px,3vh,30px);
+  font-size:clamp(1.05rem, 1.5vw, 1.3rem);
+  line-height:1.65;
+  color:var(--ink-soft);
+  max-width:38ch;
+  font-weight:300;
+}
+.scene.align-right .scene-body{ margin-left:auto; }
+
+.scene-note{
+  margin-top:clamp(22px,3.4vh,34px);
+  font-family:var(--font-display); font-style:italic; font-weight:400;
+  font-size:clamp(1rem, 1.3vw, 1.15rem);
+  color:var(--ink-faint);
+  border-left:1px solid var(--gold);
+  padding-left:18px;
+}
+.scene.align-right .scene-note{ border-left:none; border-right:1px solid var(--gold); padding-left:0; padding-right:18px; }
+
+.reveal{ opacity:0; }
+
+/* ---- HERO ---- */
+.scene-hero{ align-items:center; }
+.scene-hero .scene-content{ padding-bottom:0; }
+.scene-hero .scene-inner{ max-width:52rem; text-align:center; margin:0 auto; }
+.scene-hero .eyebrow{ }
+.hero-title{
+  font-size:clamp(2.6rem, 7.4vw, 5.6rem);
+  max-width:none;
+}
+.hero-sub{
+  margin:clamp(18px,3vh,26px) auto 0;
+  max-width:34ch;
+  font-size:clamp(1.05rem,1.6vw,1.25rem);
+  color:var(--ink-soft);
+}
+
+.scroll-cue{
+  position:absolute; left:50%; bottom:clamp(28px,6vh,52px);
+  transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  background:none; border:none; color:var(--ink-soft);
+  cursor:pointer; z-index:3;
+  font-family:var(--font-body); font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase;
+}
+.scroll-cue .stem{
+  width:1px; height:38px;
+  background:linear-gradient(to bottom, var(--gold-soft), transparent);
+  position:relative; overflow:hidden;
+}
+.scroll-cue .stem::after{
+  content:''; position:absolute; left:0; top:-100%; width:100%; height:100%;
+  background:var(--gold); animation:cue-drip 2.4s var(--ease-cinema) infinite;
+}
+@keyframes cue-drip{ 0%{ top:-100%; } 60%,100%{ top:100%; } }
+
+/* ---- CIERRE ---- */
+.scene-closing{
+  align-items:center; justify-content:center; text-align:center;
+  background:#080906;
+}
+.scene-closing .scene-media{ opacity:0.55; }
+.closing-inner{ max-width:34rem; margin:0 auto; padding:0 var(--gutter); position:relative; z-index:2; }
+.closing-mark{
+  font-family:var(--font-display); font-style:italic; font-size:1rem;
+  color:var(--ink-faint); letter-spacing:0.06em; margin-top:26px; display:block;
+}
+
+/* =====================================================================
+   4. ACCESIBILIDAD — foco visible / prefers-reduced-motion
+   ===================================================================== */
+@media (prefers-reduced-motion: reduce){
+  .scroll-cue .stem::after{ animation:none; }
+}
+
+/* =====================================================================
+   5. RESPONSIVE — tablet / móvil
+   ===================================================================== */
+@media (max-width: 860px){
+  .scene{ align-items:flex-end; }
+  .scene.align-right .scene-inner{ margin-left:0; text-align:left; }
+  .scene.align-right .scene-title,
+  .scene.align-right .scene-body{ margin-left:0; }
+  .scene.align-right .scene-note{ border-right:none; border-left:1px solid var(--gold); padding-right:0; padding-left:18px; }
+  .scene-content{ padding-bottom:clamp(56px,10vh,90px); }
+  .mark, .sound-toggle{ opacity:0 !important; }
 }
 </style>
 </head>
 <body>
 
-<svg id="rootline" viewBox="0 0 1000 64" preserveAspectRatio="none" aria-hidden="true">
-  <path id="rootpath" d="M0,50 C60,30 110,58 170,40 C230,22 260,52 320,42 C380,32 420,54 480,38
-    C540,22 580,50 640,40 C700,30 730,55 790,42 C850,29 880,52 940,38 C965,32 985,44 1000,36"/>
-</svg>
+<!-- Marco cinematográfico permanente -->
+<div class="letterbox top" aria-hidden="true"></div>
+<div class="letterbox bottom" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="light-thread" id="lightThread" aria-hidden="true"></div>
 
-<button id="bgmToggle" title="Música (agrega tu propio archivo antes del evento)">🎵 Música</button>
-<audio id="bgm" loop preload="none"><!-- Coloca aquí tu propio piano instrumental: <source src="tu-piano.mp3" type="audio/mpeg"> --></audio>
+<div class="mark" id="mark" aria-hidden="true">quietud</div>
 
-<main id="stage">
+<!-- CAMBIAR AQUÍ LA URL DEL AUDIO: si defines MEDIA.audio en el script, este botón se activa automáticamente -->
+<button class="sound-toggle is-muted" id="soundToggle" type="button" aria-label="Activar música ambiental" aria-pressed="false" hidden>
+  <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16.5 8a5 5 0 0 1 0 8"/></svg>
+  <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 9v6h4l5 5V4L8 9H4z"/><line x1="16" y1="9" x2="21" y2="14"/><line x1="21" y1="9" x2="16" y2="14"/></svg>
+</button>
 
-<!-- 01 — APERTURA -->
-<section class="slide t-sky active" data-host="🎵 PLAY volumen bajo · dejar respirar 4–5 s antes de continuar">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div><div class="fx-grain"></div>
-  <div class="content">
-    <div class="eyebrow">Familia Acuña</div>
-    <h1 class="titleXL">UNA MISMA RAÍZ</h1>
-    <div class="wordmark">Encuentro de familia en oración</div>
-  </div>
-  <div class="moni">@Moni</div>
-</section>
+<main id="main">
 
-<!-- 02 — RAÍZ -->
-<section class="slide t-roots" data-host="⏳ dejar 3–4 s en silencio">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-grain"></div>
-  <div class="content"><div class="phrase">TODOS NACIMOS<br>DE LA MISMA RAÍZ.</div></div>
-</section>
+  <!-- ============================= ESCENA 1 — HERO ============================= -->
+  <section class="scene scene-hero" data-scene="hero" aria-label="Introducción">
+    <div class="scene-media" data-parallax>
+      <img data-src-key="hero" alt="Rayos de sol atravesando la niebla de un bosque otoñal" loading="eager">
+    </div>
+    <div class="scene-veil"></div>
+    <div class="scene-content">
+      <div class="scene-inner">
+        <span class="eyebrow reveal">Una experiencia contemplativa</span>
+        <h1 class="hero-title reveal">Donde la luz<br>encuentra el silencio</h1>
+        <p class="hero-sub reveal">Una película sobre la raíz, el camino y la espera —<br>hecha para verse despacio.</p>
+      </div>
+    </div>
+    <button class="scroll-cue" id="scrollCue" type="button" aria-label="Desplázate para comenzar">
+      <span>Desplázate</span>
+      <span class="stem" aria-hidden="true"></span>
+    </button>
+  </section>
 
-<!-- 03 — CAMINOS -->
-<section class="slide t-path" data-host="⏳ dejar 3 s">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-grain"></div>
-  <div class="content"><div class="phrase">CON EL TIEMPO,<br>CADA UNO TOMÓ SU CAMINO.</div></div>
-</section>
+  <!-- ============================= ESCENA 2 — RAÍCES ============================= -->
+  <section class="scene" data-scene="raices" aria-label="Raíces">
+    <div class="scene-media" data-parallax>
+      <img data-src-key="tree" alt="Tronco antiguo de una secuoya cubierto de corteza texturizada" loading="lazy">
+    </div>
+    <div class="scene-veil"></div>
+    <div class="scene-content">
+      <div class="scene-inner">
+        <span class="eyebrow reveal">Raíces</span>
+        <h2 class="scene-title reveal">Lo que no se ve<br>es lo que sostiene</h2>
+        <p class="scene-body reveal">Bajo la corteza y la sombra, algo crece sin prisa. Ninguna raíz se apura por alcanzar la superficie — primero aprende a sostener.</p>
+        <p class="scene-note reveal">Lo invisible sostiene lo visible.</p>
+      </div>
+    </div>
+  </section>
 
-<!-- 04 — DISTANCIA -->
-<section class="slide t-sky" data-host="⏳ dejar 3 s">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content"><div class="phrase">HOY ESTAMOS LEJOS,<br>PERO SEGUIMOS UNIDOS.</div></div>
-</section>
+  <!-- ============================= ESCENA 3 — CAMINO ============================= -->
+  <section class="scene align-right" data-scene="camino" aria-label="Camino">
+    <div class="scene-media" data-parallax>
+      <img data-src-key="path" alt="Sendero de tierra que se adentra en un bosque iluminado" loading="lazy">
+    </div>
+    <div class="scene-veil"></div>
+    <div class="scene-content">
+      <div class="scene-inner">
+        <span class="eyebrow reveal">Camino</span>
+        <h2 class="scene-title reveal">Cada paso<br>tiene su tiempo</h2>
+        <p class="scene-body reveal">No se ve el final del sendero desde el primer paso. Se camina un tramo a la vez, confiando en que el siguiente aparecerá cuando haga falta.</p>
+        <p class="scene-note reveal">La prisa rara vez llega más lejos que la paciencia.</p>
+      </div>
+    </div>
+  </section>
 
-<!-- 05 — MEMORIA -->
-<section class="slide t-bible" data-host="⏳ dejar 3 s · preparar apertura de la Biblia">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-grain"></div>
-  <div class="content"><div class="phrase">LA MEMORIA<br>NOS SOSTIENE.</div></div>
-</section>
+  <!-- ============================= ESCENA 4 — AGUA ============================= -->
+  <section class="scene" data-scene="agua" aria-label="Agua">
+    <div class="scene-media" data-parallax>
+      <img data-src-key="water" alt="Gota de agua formando ondas concéntricas sobre una superficie en calma" loading="lazy">
+    </div>
+    <div class="scene-veil"></div>
+    <div class="scene-content">
+      <div class="scene-inner">
+        <span class="eyebrow reveal">Agua viva</span>
+        <h2 class="scene-title reveal">Lo que refresca<br>no siempre hace ruido</h2>
+        <p class="scene-body reveal">Una sola gota basta para mover toda la superficie. La renovación casi nunca llega como tormenta — llega como quietud que se expande hacia afuera.</p>
+        <p class="scene-note reveal">Hasta el silencio deja ondas.</p>
+      </div>
+    </div>
+  </section>
 
-<!-- 06 — REENCUENTRO -->
-<section class="slide t-light" data-host="🎙️ HABLA TÚ — da la bienvenida a la familia">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content"><div class="phrase">HOY VOLVEMOS<br>A ENCONTRARNOS.</div><div class="small">Como una misma raíz que nunca dejó de sostenernos.</div></div>
-</section>
+  <!-- ============================= ESCENA 5 — FLORECER ============================= -->
+  <section class="scene align-right" data-scene="flor" aria-label="Florecer">
+    <div class="scene-media" data-parallax>
+      <img data-src-key="flower" alt="Pétalos blancos de una orquídea cubiertos de gotas de rocío" loading="lazy">
+    </div>
+    <div class="scene-veil"></div>
+    <div class="scene-content">
+      <div class="scene-inner">
+        <span class="eyebrow reveal">Florecer</span>
+        <h2 class="scene-title reveal">Nada florece<br>a la fuerza</h2>
+        <p class="scene-body reveal">Cada pétalo se abre en su propio momento, no antes. Lo que crece con calma suele ser lo que se queda.</p>
+        <p class="scene-note reveal">La belleza no se apresura.</p>
+      </div>
+    </div>
+  </section>
 
-<!-- 07 — ORACIÓN INICIAL (1/5) -->
-<section class="slide t-light" data-host="📖 lee en voz alta o deja que la familia lea en silencio · siguiente cuando termines">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content stagger">
-    <div class="eyebrow">Oración inicial</div>
-    <div class="small">Dios Todopoderoso, gracias por este momento.</div>
-    <div class="small">Gracias por permitirnos encontrarnos como familia, aunque estemos en distintos lugares.</div>
-  </div>
-</section>
+  <!-- ============================= ESCENA 6 — LUZ ============================= -->
+  <section class="scene" data-scene="luz" aria-label="Luz">
+    <div class="scene-media" data-parallax>
+      <img data-src-key="light" alt="Luz del sol entrando suavemente por una cortina junto a una ventana" loading="lazy">
+    </div>
+    <div class="scene-veil"></div>
+    <div class="scene-content">
+      <div class="scene-inner">
+        <span class="eyebrow reveal">Luz</span>
+        <h2 class="scene-title reveal">La luz entra<br>por donde hay una grieta</h2>
+        <p class="scene-body reveal">No hace falta una ventana entera para que entre la claridad. Basta una abertura pequeña — y hasta el cuarto más quieto se llena de tibieza.</p>
+        <p class="scene-note reveal">Ninguna oscuridad es completamente cerrada.</p>
+      </div>
+    </div>
+  </section>
 
-<!-- 08 — ORACIÓN INICIAL (2/5) -->
-<section class="slide t-light" data-host="📖 siguiente">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content stagger">
-    <div class="small">Hoy hacemos una pausa para acercarnos a Ti.</div>
-    <div class="small">Tú conoces a nuestros queridos tíos.</div>
-  </div>
-</section>
+  <!-- ============================= ESCENA 7 — PALABRA ============================= -->
+  <section class="scene align-right" data-scene="palabra" aria-label="Palabra">
+    <div class="scene-media" data-parallax>
+      <img data-src-key="bible" alt="Libro antiguo abierto con sus páginas iluminadas por una luz cálida" loading="lazy">
+    </div>
+    <div class="scene-veil"></div>
+    <div class="scene-content">
+      <div class="scene-inner">
+        <span class="eyebrow reveal">Palabra</span>
+        <h2 class="scene-title reveal">Páginas antiguas,<br>voz presente</h2>
+        <p class="scene-body reveal">Hay textos que llevan siglos siendo leídos y aun así siguen hablando como si fuera la primera vez. No envejecen: se quedan esperando a quien los necesite hoy.</p>
+        <p class="scene-note reveal">Lo antiguo, cuando es verdadero, no pasa de moda.</p>
+      </div>
+    </div>
+  </section>
 
-<!-- 09 — ORACIÓN INICIAL (3/5) -->
-<section class="slide t-light" data-host="📖 siguiente">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content stagger">
-    <div class="small">Conoces sus vidas, sus corazones, sus necesidades y todo aquello que nosotros no podemos ver.</div>
-    <div class="small">Nosotros no conocemos todo, pero Tú sí.</div>
-  </div>
-</section>
+  <!-- ============================= ESCENA 8 — AMANECER ============================= -->
+  <section class="scene" data-scene="amanecer" aria-label="Esperanza">
+    <div class="scene-media" data-parallax>
+      <img data-src-key="sunrise" alt="Amanecer dorado sobre un horizonte de nubes" loading="lazy">
+    </div>
+    <div class="scene-veil"></div>
+    <div class="scene-content">
+      <div class="scene-inner">
+        <span class="eyebrow reveal">Esperanza</span>
+        <h2 class="scene-title reveal">Después de la noche,<br>siempre amanece</h2>
+        <p class="scene-body reveal">Ninguna noche ha logrado detener al sol. La luz siempre vuelve — más silenciosa, más segura, siempre a tiempo.</p>
+      </div>
+    </div>
+  </section>
 
-<!-- 10 — ORACIÓN INICIAL (4/5) -->
-<section class="slide t-light" data-host="📖 siguiente">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content stagger">
-    <div class="small">Por eso, antes de pedir, queremos simplemente estar contigo.</div>
-    <div class="small">Quédate con nosotros durante este momento. Quédate con nuestros tíos. Quédate con quienes hoy los acompañan.</div>
-  </div>
-</section>
-
-<!-- 11 — ORACIÓN INICIAL (5/5) -->
-<section class="slide t-light" data-host="📖 SIGUIENTE — Mateo 18:20">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content stagger">
-    <div class="small">Y permite que cada persona que está aquí pueda abrir su corazón, guardar silencio y escuchar tu Palabra.</div>
-    <div class="small">Hoy estamos aquí, juntos en oración. En el nombre de Jesús de Nazaret. Amén.</div>
-  </div>
-</section>
-
-<!-- 12 — Mateo 18:20 -->
-<section class="slide t-bible" data-host="📖 SIGUIENTE · ¿quién desea leer?">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-grain"></div>
-  <div class="content">
-    <div class="eyebrow">Estamos juntos</div>
-    <h2 class="ref">Mateo 18:20</h2>
-    <div class="verseText">"Porque donde están dos o tres congregados en mi nombre, allí estoy yo en medio de ellos."</div>
-    <div class="prompt">¿Quién desea leer?</div>
-  </div>
-</section>
-
-<!-- 13 — HOY NO ESTAMOS SOLOS -->
-<section class="slide t-roots" data-host="🎙️ HABLA TÚ · luego siguiente">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-leaves"><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i></div>
-  <div class="content stagger">
-    <div class="phrase">HOY NO ESTAMOS SOLOS.</div>
-    <div class="small">Estamos aquí como familia.</div>
-    <div class="small">Dios conoce nuestros corazones, nuestras preocupaciones y también nuestra esperanza.</div>
-    <div class="small">Sigamos con nuestro corazón tranquilo.</div>
-  </div>
-</section>
-
-<!-- 14 — Filipenses 4:6-7 -->
-<section class="slide t-leaves" data-host="📖 SIGUIENTE · ¿quién desea leer?">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-leaves"><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i></div>
-  <div class="content">
-    <div class="eyebrow">Dejamos nuestras preocupaciones</div>
-    <h2 class="ref">Filipenses 4:6–7</h2>
-    <div class="verseText"><b>6</b> Por nada estéis afanosos, sino sean conocidas vuestras peticiones delante de Dios en toda oración y ruego, con acción de gracias.<br><br><b>7</b> Y la paz de Dios, que sobrepasa todo entendimiento, guardará vuestros corazones y vuestros pensamientos en Cristo Jesús.</div>
-    <div class="prompt">¿Quién desea leer?</div>
-  </div>
-</section>
-
-<!-- 15 — ENTREGUEMOS NUESTRAS PREOCUPACIONES (silencio) -->
-<section class="slide t-water" data-host="🕊️ SILENCIO 15–20 s · música muy baja">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-water"></div>
-  <div class="content stagger">
-    <div class="phrase">ENTREGUEMOS<br>NUESTRAS PREOCUPACIONES.</div>
-    <div class="small">Piensa por un momento en aquello que hoy te preocupa.</div>
-    <div class="small">No tienes que decirlo en voz alta.</div>
-    <div class="small">Puedes entregárselo a Dios.</div>
-    <div class="phrase">DIOS CONOCE TU CORAZÓN.</div>
-  </div>
-</section>
-
-<!-- 16 — Mateo 21:22 -->
-<section class="slide t-light" data-host="📖 SIGUIENTE · ¿quién desea leer?">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content">
-    <div class="eyebrow">Pedimos con fe</div>
-    <h2 class="ref">Mateo 21:22</h2>
-    <div class="verseText">"Y todo lo que pidiereis en oración, creyendo, lo recibiréis."</div>
-    <div class="prompt">¿Quién desea leer?</div>
-  </div>
-</section>
-
-<!-- 17 — QUÉ QUEREMOS PEDIR -->
-<section class="slide t-leaves" data-host="🎙️ HABLA TÚ · pausa breve">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-leaves"><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i></div>
-  <div class="content stagger">
-    <div class="phrase">¿QUÉ QUEREMOS PEDIR HOY?</div>
-    <div class="stack"><div class="phrase">SALUD</div><div class="phrase">PAZ</div><div class="phrase">FORTALEZA</div></div>
-    <div class="small">Para nuestros tíos, para quienes los acompañan y para nuestra familia.</div>
-    <div class="phrase">PIDAMOS CON FE.</div>
-  </div>
-</section>
-
-<!-- 18 — Juan 15:7 -->
-<section class="slide t-roots" data-host="📖 SIGUIENTE · ¿quién desea leer?">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-grain"></div>
-  <div class="content">
-    <div class="eyebrow">Permanecemos en Él</div>
-    <h2 class="ref">Juan 15:7</h2>
-    <div class="verseText">"Si permanecéis en mí, y mis palabras permanecen en vosotros, pedid todo lo que queréis, y os será hecho."</div>
-    <div class="prompt">¿Quién desea leer?</div>
-  </div>
-</section>
-
-<!-- 19 — PERMANECER -->
-<section class="slide t-leaves" data-host="🎙️ HABLA TÚ · 5 s de pausa">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-leaves"><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i><i class="leaf"></i></div>
-  <div class="content stagger">
-    <div class="phrase">PERMANECER</div>
-    <div class="stack"><div class="small">Escuchar.</div><div class="small">Confiar.</div><div class="small">Seguir cerca.</div></div>
-    <div class="small">No estamos aquí solamente para pedir. También estamos aquí para acercarnos a Dios.</div>
-    <div class="phrase">PIENSA EN ALGO POR LO QUE ESTÉS AGRADECIDO.</div>
-  </div>
-</section>
-
-<!-- 20 — Jeremías 17:14 -->
-<section class="slide t-light" data-host="🎵 subir un poco · ¿quién desea leer?">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content">
-    <div class="eyebrow">El corazón de nuestra oración</div>
-    <h2 class="ref">Jeremías 17:14</h2>
-    <div class="verseText">"Sáname, oh Jehová, y seré sano; sálvame, y seré salvo; porque tú eres mi alabanza."</div>
-    <div class="prompt">¿Quién desea leer?</div>
-  </div>
-</section>
-
-<!-- 21 — POR NUESTROS TÍOS -->
-<section class="slide t-roots" data-host="🎵 bajar música · oración familiar en voz alta, sin orden obligatorio">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div><div class="fx-grain"></div>
-  <div class="content stagger">
-    <div class="phrase">POR NUESTROS TÍOS.</div>
-    <div class="stack"><div class="small">Por su salud.</div><div class="small">Por su fortaleza.</div><div class="small">Por su paz.</div><div class="small">Por quienes los acompañan.</div></div>
-    <div class="small">Y por todas las personas que hoy necesitan salud, fortaleza y esperanza.</div>
-    <div class="phrase">OREMOS JUNTOS</div>
-    <div class="prompt">Cada persona que desee puede participar.</div>
-  </div>
-</section>
-
-<!-- 22 — Salmo 46:1 -->
-<section class="slide t-sky" data-host="⏸️ pausar música · ¿quién desea leer?">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-water"></div>
-  <div class="content">
-    <div class="eyebrow">Dios es nuestro amparo</div>
-    <h2 class="ref">Salmo 46:1</h2>
-    <div class="verseText">"Dios es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones."</div>
-    <div class="prompt">¿Quién desea leer?</div>
-  </div>
-</section>
-
-<!-- 23 — AMPARO FORTALEZA AUXILIO -->
-<section class="slide t-sky" data-host="🎙️ HABLA TÚ · música muy baja">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content stagger">
-    <div class="phrase">AMPARO.</div><div class="phrase">FORTALEZA.</div><div class="phrase">AUXILIO.</div>
-    <div class="small">Ahora recordemos algo muy sencillo: no estamos solos.</div>
-    <div class="phrase">PODEMOS DESCANSAR.</div>
-  </div>
-</section>
-
-<!-- 24 — AHORA, DETENTE (Salmo 46:10) -->
-<section class="slide t-dark" data-host="🎵 pausa total · silencio 20 s · ¿quién desea leer al final?">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-ember"></div>
-  <div class="content stagger">
-    <div class="eyebrow">Salmo 46:10</div>
-    <div class="phrase">AHORA, DETENTE.</div>
-    <div class="small">Respira.</div>
-    <div class="small">No tienes que resolverlo todo ahora.</div>
-    <div class="phrase">QUÉDATE UN MOMENTO CON DIOS.</div>
-    <div class="verseText">"Estad quietos, y conoced que yo soy Dios; seré exaltado entre las naciones; enaltecido seré en la tierra."</div>
-  </div>
-</section>
-
-<!-- 25 — ESTAD QUIETOS -->
-<section class="slide t-dark" data-host="🕊️ 20 s de silencio · luego música muy suave de vuelta">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-ember"></div>
-  <div class="content stagger">
-    <div class="phrase">ESTAD QUIETOS.</div>
-    <div class="phrase">DIOS ESTÁ AQUÍ.</div>
-    <div class="small">En este momento.<br>Con nuestra familia.<br>Con nuestros tíos.</div>
-    <div class="phrase">CONFIÉMOS EN ÉL.</div>
-  </div>
-</section>
-
-<!-- 26 — PREPARACIÓN SALMO 91:15 -->
-<section class="slide t-dark" data-host="🕊️ silencio profundo · reducir toda la música">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-ember"></div>
-  <div class="content stagger">
-    <div class="small">Antes de continuar, quedémonos un instante más en silencio.</div>
-    <div class="small">Hay una promesa que Dios nos hace a cada uno de nosotros.</div>
-  </div>
-</section>
-
-<!-- 27 — SALMO 91:15 (a) -->
-<section class="slide t-dark" data-host="⏳ pausa breve · siguiente">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-ember"></div>
-  <div class="content"><div class="phrase">Me invocará,</div></div>
-</section>
-
-<!-- 28 — SALMO 91:15 (b) -->
-<section class="slide t-dark" data-host="⏳ pausa breve · siguiente">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-ember"></div>
-  <div class="content"><div class="phrase">y yo le responderé;</div></div>
-</section>
-
-<!-- 29 — SALMO 91:15 (c) -->
-<section class="slide t-dark" data-host="⏳ pausa breve · siguiente">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-ember"></div>
-  <div class="content"><div class="phrase">Con él estaré yo<br>en la angustia;</div></div>
-</section>
-
-<!-- 30 — SALMO 91:15 completo -->
-<section class="slide t-light" data-host="🎵 música vuelve suave · SIGUIENTE — Salmo 121:1–2">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content stagger">
-    <div class="eyebrow">Salmo 91:15</div>
-    <div class="verseText" style="font-size:clamp(24px,3.2vw,42px)">"Me invocará, y yo le responderé; con él estaré yo en la angustia; lo libraré y le glorificaré."</div>
-    <div class="prompt">Reina-Valera 1960</div>
-  </div>
-</section>
-
-<!-- 31 — Salmo 121:1-2 -->
-<section class="slide t-sky" data-host="📖 SIGUIENTE · ¿quién desea leer?">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content">
-    <div class="eyebrow">Nuestra ayuda viene de Dios</div>
-    <h2 class="ref">Salmo 121:1–2</h2>
-    <div class="verseText"><b>1</b> Alzaré mis ojos a los montes; ¿De dónde vendrá mi socorro?<br><br><b>2</b> Mi socorro viene de Jehová, que hizo los cielos y la tierra.</div>
-    <div class="prompt">¿Quién desea leer?</div>
-  </div>
-</section>
-
-<!-- 32 — Salmo 121:3-4 -->
-<section class="slide t-roots" data-host="📖 SIGUIENTE · ¿quién desea continuar?">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-grain"></div>
-  <div class="content">
-    <div class="eyebrow">Él cuida de nosotros</div>
-    <h2 class="ref">Salmo 121:3–4</h2>
-    <div class="verseText"><b>3</b> No dará tu pie al resbaladero, ni se dormirá el que te guarda.<br><br><b>4</b> He aquí, no se adormecerá ni dormirá el que guarda a Israel.</div>
-    <div class="prompt">¿Quién desea continuar?</div>
-  </div>
-</section>
-
-<!-- 33 — Salmo 121:7-8 -->
-<section class="slide t-light" data-host="📖 SIGUIENTE · ¿quién desea leer?">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content">
-    <div class="eyebrow">Él guarda nuestro camino</div>
-    <h2 class="ref">Salmo 121:7–8</h2>
-    <div class="verseText"><b>7</b> Jehová te guardará de todo mal; Él guardará tu alma.<br><br><b>8</b> Jehová guardará tu salida y tu entrada desde ahora y para siempre.</div>
-    <div class="prompt">¿Quién desea leer?</div>
-  </div>
-</section>
-
-<!-- 34 — DESDE AHORA Y PARA SIEMPRE -->
-<section class="slide t-sky" data-host="🎵 bajar música · preparar oración final">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content stagger"><div class="phrase">DESDE AHORA Y PARA SIEMPRE.</div><div class="phrase">GRACIAS, DIOS.</div></div>
-</section>
-
-<!-- 35 — AHORA OREMOS JUNTOS -->
-<section class="slide t-roots" data-host="❤️ oración final · cada persona que desee puede participar">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content stagger">
-    <div class="eyebrow">Cierre</div>
-    <div class="phrase">AHORA, OREMOS JUNTOS</div>
-    <div class="small">Cada persona que desee puede participar.</div>
-  </div>
-</section>
-
-<!-- 36 — ORACIÓN FINAL (1/6) -->
-<section class="slide t-light" data-host="🎙️ continúa con la oración final · siguiente cuando quieras">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content stagger">
-    <div class="eyebrow">Oración final</div>
-    <div class="small">Dios, gracias por este momento.</div>
-    <div class="small">Gracias por permitirnos encontrarnos, por reunirnos como familia y por regalarnos este espacio para estar juntos en oración.</div>
-  </div>
-</section>
-
-<!-- 37 — ORACIÓN FINAL (2/6) -->
-<section class="slide t-light" data-host="🎙️ siguiente">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content stagger">
-    <div class="small">Gracias por cada persona que estuvo presente, por quienes pudieron leer, por quienes oraron y también por quienes simplemente acompañaron en silencio.</div>
-    <div class="small">Hoy ponemos nuevamente en tus manos a nuestros queridos tíos.</div>
-  </div>
-</section>
-
-<!-- 38 — ORACIÓN FINAL (3/6) -->
-<section class="slide t-light" data-host="🎙️ siguiente">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content stagger">
-    <div class="small">Tú conoces sus vidas, sus corazones, sus necesidades y todo aquello que nosotros no podemos ver.</div>
-    <div class="small">Te pedimos por su salud, por su fortaleza, por su tranquilidad y por cada persona que los acompaña.</div>
-  </div>
-</section>
-
-<!-- 39 — ORACIÓN FINAL (4/6) -->
-<section class="slide t-light" data-host="🎙️ siguiente">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content stagger">
-    <div class="small">Acompaña también a nuestra familia.</div>
-    <div class="small">Dale sabiduría a quienes toman decisiones, fortaleza a quienes realizan diligencias, tranquilidad a quienes esperan noticias y generosidad a quienes ayudan.</div>
-    <div class="small">Que nunca nos falte el amor para acompañarnos unos a otros.</div>
-  </div>
-</section>
-
-<!-- 40 — ORACIÓN FINAL (5/6) -->
-<section class="slide t-light" data-host="🎙️ siguiente">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content stagger">
-    <div class="small">Y cuando lleguen los momentos difíciles, ayúdanos a recordar lo que hoy hemos compartido:</div>
-    <div class="small">que podemos acercarnos a Ti, que podemos entregar nuestras preocupaciones, que podemos pedir con fe, que podemos permanecer cerca de Ti, y que podemos descansar sabiendo que Tú eres nuestro amparo y nuestra fortaleza.</div>
-  </div>
-</section>
-
-<!-- 41 — ORACIÓN FINAL (6/6) -->
-<section class="slide t-light" data-host="🎵 la música llega suavemente al final · después del Amén, esperar 3 s">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content stagger">
-    <div class="small">Gracias por esta familia. Gracias por esta reunión. Gracias por la vida. Gracias por la esperanza.</div>
-    <div class="small">Y gracias porque, aun cuando estemos lejos, hoy pudimos estar juntos.</div>
-    <div class="small">Que tu paz permanezca con nosotros, con nuestros tíos y con cada persona que necesita de Ti.</div>
-    <div class="small">En el nombre de Jesús de Nazaret. Amén.</div>
-  </div>
-</section>
-
-<!-- 42 — CIERRE -->
-<section class="slide t-sky" data-host="🎵 música se desvanece · FIN">
-  <div class="veil"></div><div class="vignette"></div><div class="fx-rays"></div>
-  <div class="content stagger">
-    <div class="wordmark">Familia Acuña</div>
-    <div class="phrase">UNA FAMILIA.</div>
-    <div class="phrase">UNA ORACIÓN.</div>
-    <div class="phrase">UNA ESPERANZA.</div>
-    <div class="small">🕊️ Gracias por estar aquí.</div>
-  </div>
-  <div class="moni">@Moni</div>
-</section>
+  <!-- ============================= CIERRE ============================= -->
+  <section class="scene scene-closing" data-scene="cierre" aria-label="Cierre">
+    <div class="scene-media" aria-hidden="true">
+      <img data-src-key="sunrise" alt="" loading="lazy">
+    </div>
+    <div class="scene-veil"></div>
+    <div class="closing-inner">
+      <h2 class="scene-title reveal" style="max-width:none;">Respira.<br>Vuelve cuando quieras.</h2>
+      <span class="closing-mark reveal">fin de la quietud — comienzo de lo tuyo</span>
+    </div>
+  </section>
 
 </main>
 
-<div class="page" id="page"></div>
-<div id="controls"><button id="prev" aria-label="Anterior">‹</button><span id="counter"></span><button id="next" aria-label="Siguiente">›</button></div>
-<div id="host"><strong>Guion privado</strong><div id="hostAction"></div><div id="hostHint">H ocultar · F pantalla completa · ← → navegar</div></div>
+<!-- =====================================================================
+     LIBRERÍAS — GSAP + ScrollTrigger + Lenis, vía CDN (sin build, sin npm)
+     ===================================================================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
 
 <script>
-const slides=[...document.querySelectorAll('.slide')];
-const rootPath=document.getElementById('rootpath');
-const rootLen=rootPath.getTotalLength();
-rootPath.style.strokeDasharray=rootLen;
-rootPath.style.strokeDashoffset=rootLen;
+(function(){
+  "use strict";
 
-const page=document.getElementById('page');
-const counter=document.getElementById('counter');
-const host=document.getElementById('host');
-const hostAction=document.getElementById('hostAction');
-const bgm=document.getElementById('bgm');
-const bgmToggle=document.getElementById('bgmToggle');
-let i=0;
+  /* ===================================================================
+     MEDIA — todas las imágenes en un solo lugar, fáciles de reemplazar.
+     Cada fotografía es real (Unsplash, licencia libre de uso).
+     =================================================================== */
+  const MEDIA = {
+    // CAMBIAR AQUÍ LA URL DE LA IMAGEN PRINCIPAL (hero)
+    hero:    "https://images.unsplash.com/photo-1762755126280-6d8a4f9d1115?auto=format&fit=crop&w=2400&q=80",
+    tree:    "https://images.unsplash.com/photo-1717202162731-45ee1745f9b9?auto=format&fit=crop&w=2400&q=80",
+    path:    "https://images.unsplash.com/photo-1752230446597-a5b08f8647e4?auto=format&fit=crop&w=2400&q=80",
+    water:   "https://images.unsplash.com/photo-1537083237872-3820917923d1?auto=format&fit=crop&w=2400&q=80",
+    flower:  "https://images.unsplash.com/photo-1758152617208-246cd3db6a8f?auto=format&fit=crop&w=2400&q=80",
+    light:   "https://images.unsplash.com/photo-1708471497203-5aee524c1b1c?auto=format&fit=crop&w=2400&q=80",
+    bible:   "https://images.unsplash.com/photo-1757175461743-97f5dc343c58?auto=format&fit=crop&w=2400&q=80",
+    sunrise: "https://images.unsplash.com/photo-1759513332708-6e0aa2364095?auto=format&fit=crop&w=2400&q=80",
+    // CAMBIAR AQUÍ LA URL DEL AUDIO — deja vacío ("") si no quieres música de fondo
+    audio: ""
+  };
 
-function render(){
-  slides.forEach((s,n)=>s.classList.toggle('active',n===i));
-  counter.textContent=`${i+1} / ${slides.length}`;
-  hostAction.textContent=slides[i].dataset.host||'—';
-  const progress=i/(slides.length-1);
-  rootPath.style.strokeDashoffset=rootLen*(1-progress);
-}
-function next(){
-  if(i<slides.length-1){
-    page.classList.remove('turn');void page.offsetWidth;page.classList.add('turn');
-    setTimeout(()=>{i++;render()},190);
+  document.querySelectorAll("img[data-src-key]").forEach(img=>{
+    const key = img.getAttribute("data-src-key");
+    if (MEDIA[key]) img.src = MEDIA[key];
+  });
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ===================================================================
+     LENIS — desplazamiento fluido, sincronizado con el ticker de GSAP
+     =================================================================== */
+  let lenis = null;
+  if (!reduceMotion && window.Lenis){
+    lenis = new Lenis({
+      duration: 1.15,
+      easing: (t)=> Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      wheelMultiplier: 1
+    });
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((time)=>{ lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
   }
-}
-function prev(){ if(i>0){ i--; render(); } }
 
-document.getElementById('next').onclick=next;
-document.getElementById('prev').onclick=prev;
+  /* ===================================================================
+     REVELADO DE TEXTOS — fade in + slide up, power4.out
+     =================================================================== */
+  document.querySelectorAll(".scene").forEach(scene=>{
+    const items = scene.querySelectorAll(".reveal");
+    if (!items.length) return;
 
-document.addEventListener('keydown',e=>{
-  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();next();}
-  if(e.key==='ArrowLeft'){e.preventDefault();prev();}
-  if(e.key.toLowerCase()==='h')host.classList.toggle('show');
-  if(e.key.toLowerCase()==='f'){
-    if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();
-    else document.exitFullscreen?.();
+    if (reduceMotion){
+      gsap.set(items, { opacity:1 });
+      return;
+    }
+
+    gsap.fromTo(items,
+      { y: 34, opacity: 0 },
+      {
+        y: 0, opacity: 1,
+        duration: 1.3,
+        ease: "power4.out",
+        stagger: 0.14,
+        scrollTrigger:{
+          trigger: scene,
+          start: "top 62%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  /* ===================================================================
+     KEN BURNS + PARALLAX — movimiento de cámara lento sobre cada imagen
+     =================================================================== */
+  document.querySelectorAll(".scene-media[data-parallax] img").forEach(img=>{
+    const scene = img.closest(".scene");
+
+    if (reduceMotion){
+      gsap.set(img, { scale:1.02 });
+      return;
+    }
+
+    gsap.fromTo(img,
+      { scale: 1.18, yPercent: -4 },
+      {
+        scale: 1.02, yPercent: 4,
+        ease: "none",
+        scrollTrigger:{
+          trigger: scene,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.1
+        }
+      }
+    );
+  });
+
+  /* ===================================================================
+     TRANSICIÓN ENTRE ESCENAS — velo que se disuelve, como cambio de luz
+     en vez de un corte de página
+     =================================================================== */
+  document.querySelectorAll(".scene-veil").forEach((veil, i)=>{
+    if (i === 0){ gsap.set(veil, { opacity: 0 }); return; }
+    const scene = veil.closest(".scene");
+    gsap.fromTo(veil,
+      { opacity: 1 },
+      {
+        opacity: 0,
+        ease: "power2.out",
+        scrollTrigger:{
+          trigger: scene,
+          start: "top bottom",
+          end: "top 40%",
+          scrub: true
+        }
+      }
+    );
+  });
+
+  /* ===================================================================
+     HILO DE LUZ — progreso general de la película
+     =================================================================== */
+  (function(){
+    const wrap = document.getElementById("lightThread");
+    if (!wrap) return;
+    const beam = document.createElement("div");
+    beam.style.cssText = "position:absolute;left:50%;top:0;width:5px;height:100%;transform:translateX(-50%) scaleY(0);transform-origin:top;background:linear-gradient(to bottom, var(--gold-soft), var(--gold) 60%, transparent);filter:blur(1px);box-shadow:0 0 14px 2px rgba(201,162,75,0.55);";
+    wrap.appendChild(beam);
+    ScrollTrigger.create({
+      trigger: "main",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 0.3,
+      onUpdate(self){ beam.style.transform = "translateX(-50%) scaleY(" + self.progress + ")"; }
+    });
+  })();
+
+  /* ===================================================================
+     MARCA + BOTÓN DE SONIDO — aparecen tras el primer scroll
+     =================================================================== */
+  const mark = document.getElementById("mark");
+  const soundToggle = document.getElementById("soundToggle");
+  ScrollTrigger.create({
+    trigger: "main",
+    start: "top top-=10",
+    onEnter: ()=> gsap.to(mark, { opacity:1, duration:0.8 }),
+    onLeaveBack: ()=> gsap.to(mark, { opacity:0, duration:0.4 })
+  });
+
+  /* ===================================================================
+     AUDIO AMBIENTAL — opcional; solo se activa si MEDIA.audio tiene URL
+     =================================================================== */
+  if (MEDIA.audio){
+    const audioEl = document.createElement("audio");
+    audioEl.src = MEDIA.audio;
+    audioEl.loop = true;
+    audioEl.volume = 0;
+    audioEl.preload = "none";
+    document.body.appendChild(audioEl);
+
+    soundToggle.hidden = false;
+    gsap.to(soundToggle, { opacity:1, duration:0.8, delay:0.3 });
+
+    let playing = false;
+    soundToggle.addEventListener("click", ()=>{
+      if (!playing){
+        audioEl.play().catch(()=>{});
+        gsap.to(audioEl, { volume: 0.35, duration: 1.2 });
+        soundToggle.classList.remove("is-muted");
+        soundToggle.setAttribute("aria-pressed", "true");
+        soundToggle.setAttribute("aria-label", "Silenciar música ambiental");
+        playing = true;
+      } else {
+        gsap.to(audioEl, { volume: 0, duration: 0.8, onComplete: ()=> audioEl.pause() });
+        soundToggle.classList.add("is-muted");
+        soundToggle.setAttribute("aria-pressed", "false");
+        soundToggle.setAttribute("aria-label", "Activar música ambiental");
+        playing = false;
+      }
+    });
   }
-});
 
-bgmToggle.onclick=()=>{
-  if(!bgm.src){ bgmToggle.textContent='🎵 Sin pista'; return; }
-  if(bgm.paused){ bgm.play(); bgmToggle.textContent='🎵 Pausar'; }
-  else { bgm.pause(); bgmToggle.textContent='🎵 Música'; }
-};
+  /* ===================================================================
+     SCROLL CUE — lleva a la siguiente escena
+     =================================================================== */
+  const cue = document.getElementById("scrollCue");
+  if (cue){
+    cue.addEventListener("click", ()=>{
+      const next = document.querySelector('[data-scene="raices"]');
+      if (!next) return;
+      if (lenis) lenis.scrollTo(next, { duration: 1.4 });
+      else next.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+    });
+    ScrollTrigger.create({
+      trigger: "main",
+      start: "top top-=40",
+      onEnter: ()=> gsap.to(cue, { opacity:0, duration:0.5, pointerEvents:"none" }),
+      onLeaveBack: ()=> gsap.to(cue, { opacity:1, duration:0.5, pointerEvents:"auto" })
+    });
+  }
 
-render();
+  ScrollTrigger.refresh();
+  window.addEventListener("load", ()=> ScrollTrigger.refresh());
+})();
 </script>
 </body>
 </html>
